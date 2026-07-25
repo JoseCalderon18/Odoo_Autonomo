@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_autonomo_tax_return">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Borrador fiscal interno</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
+                        <p><strong>Modelo:</strong> <span t-field="doc.model_code"/> | <strong>Periodo:</strong> <span t-field="doc.period_id.period_code"/>/<span t-field="doc.fiscal_year"/></p>
+                        <table class="table table-sm">
+                            <tr><td>Estado</td><td><span t-field="doc.state"/></td></tr>
+                            <tr><td>Formulario</td><td><span t-field="doc.form_year"/> - <span t-field="doc.form_version"/></td></tr>
+                            <tr><td>A ingresar</td><td><span t-field="doc.amount_to_pay"/></td></tr>
+                            <tr><td>A devolver</td><td><span t-field="doc.amount_to_refund"/></td></tr>
+                            <tr><td>A compensar</td><td><span t-field="doc.amount_to_compensate"/></td></tr>
+                            <tr><td>Diseño oficial verificado</td><td><span t-field="doc.source_verified"/></td></tr>
+                        </table>
+                        <p class="text-muted">Borrador interno informativo. No es una declaración presentada ni sustituye validación profesional humana.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_autonomo_tax_book">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Libro fiscal</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>Libro:</strong> <span t-field="doc.book_type"/></p>
+                        <table class="table table-sm">
+                            <tr><td>Factura</td><td><span t-field="doc.invoice_number"/></td></tr>
+                            <tr><td>Fecha</td><td><span t-field="doc.issue_date"/></td></tr>
+                            <tr><td>Tercero</td><td><span t-field="doc.partner_name"/></td></tr>
+                            <tr><td>Base</td><td><span t-field="doc.tax_base"/></td></tr>
+                            <tr><td>IVA</td><td><span t-field="doc.vat_amount"/></td></tr>
+                            <tr><td>Total</td><td><span t-field="doc.total_amount"/></td></tr>
+                            <tr><td>Hash</td><td><span t-field="doc.document_sha256"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

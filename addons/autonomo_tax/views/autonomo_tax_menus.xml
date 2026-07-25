@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_autonomo_tax_obligation" model="ir.actions.act_window">
+        <field name="name">Obligaciones</field>
+        <field name="res_model">autonomo.tax.obligation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_autonomo_tax_deadline" model="ir.actions.act_window">
+        <field name="name">Plazos</field>
+        <field name="res_model">autonomo.tax.deadline</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_autonomo_tax_return" model="ir.actions.act_window">
+        <field name="name">Borradores fiscales</field>
+        <field name="res_model">autonomo.tax.return</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_autonomo_tax_book_entry" model="ir.actions.act_window">
+        <field name="name">Libros fiscales</field>
+        <field name="res_model">autonomo.tax.book.entry</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_autonomo_tax_book_snapshot" model="ir.actions.act_window">
+        <field name="name">Snapshots</field>
+        <field name="res_model">autonomo.tax.book.snapshot</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_autonomo_investment_asset" model="ir.actions.act_window">
+        <field name="name">Bienes de inversión</field>
+        <field name="res_model">autonomo.investment.asset</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_autonomo_tax_root" name="Fiscalidad" parent="autonomo_core.menu_autonomo_root" sequence="30"/>
+    <menuitem id="menu_autonomo_tax_obligations" name="Obligaciones" parent="menu_autonomo_tax_root" action="action_autonomo_tax_obligation" sequence="10"/>
+    <menuitem id="menu_autonomo_tax_deadlines" name="Plazos" parent="menu_autonomo_tax_root" action="action_autonomo_tax_deadline" sequence="20"/>
+    <menuitem id="menu_autonomo_tax_returns" name="Borradores fiscales" parent="menu_autonomo_tax_root" action="action_autonomo_tax_return" sequence="30"/>
+    <menuitem id="menu_autonomo_tax_books" name="Libros fiscales" parent="menu_autonomo_tax_root" action="action_autonomo_tax_book_entry" sequence="40"/>
+    <menuitem id="menu_autonomo_tax_snapshots" name="Snapshots" parent="menu_autonomo_tax_root" action="action_autonomo_tax_book_snapshot" sequence="50"/>
+    <menuitem id="menu_autonomo_tax_assets" name="Bienes de inversión" parent="menu_autonomo_tax_root" action="action_autonomo_investment_asset" sequence="60"/>
+</odoo>

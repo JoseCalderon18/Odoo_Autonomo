@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="source_aeat_calendar_2026" model="autonomo.legal.source">
+        <field name="name">Calendario del contribuyente 2026</field>
+        <field name="code">AEAT-CALENDAR-2026</field>
+        <field name="authority">aeat</field>
+        <field name="source_type">administrative_instruction</field>
+        <field name="official_url">https://sede.agenciatributaria.gob.es/Sede/ayuda/calendario-contribuyente/calendario-contribuyente-2026.html</field>
+        <field name="document_reference">Calendario del contribuyente 2026</field>
+        <field name="verified_at">2026-07-25 19:00:00</field>
+    </record>
+    <record id="source_aeat_model_303_2026" model="autonomo.legal.source">
+        <field name="name">Instrucciones modelo 303 ejercicio 2026</field>
+        <field name="code">AEAT-303-2026</field>
+        <field name="authority">aeat</field>
+        <field name="source_type">administrative_instruction</field>
+        <field name="official_url">https://sede.agenciatributaria.gob.es/Sede/todas-gestiones/impuestos-tasas/iva/modelo-303-iva-autoliquidacion_/instrucciones-2026.html</field>
+        <field name="document_reference">Modelo 303. IVA. Autoliquidación. Instrucciones 2026</field>
+        <field name="verified_at">2026-07-25 19:00:00</field>
+    </record>
+    <record id="source_aeat_model_130_2026" model="autonomo.legal.source">
+        <field name="name">Instrucciones modelo 130 ejercicio 2026</field>
+        <field name="code">AEAT-130-2026</field>
+        <field name="authority">aeat</field>
+        <field name="source_type">administrative_instruction</field>
+        <field name="official_url">https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas/impuesto-sobre-renta-personas-fisicas/modelo-130-irpf______esionales-estimacion-directa-fraccionado_/instrucciones.html</field>
+        <field name="document_reference">Modelo 130. IRPF. Pago fraccionado. Instrucciones</field>
+        <field name="verified_at">2026-07-25 19:00:00</field>
+    </record>
+</odoo>
