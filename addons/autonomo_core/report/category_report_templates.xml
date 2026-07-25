@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_autonomo_tax_category">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Resumen de categoria fiscal</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
+                        <p><strong>Referencia:</strong> <span t-field="doc.code"/> | <strong>Usuario:</strong> <span t-esc="env.user.name"/></p>
+                        <table class="table table-sm">
+                            <tr><td>Nombre</td><td><span t-field="doc.name"/></td></tr>
+                            <tr><td>Tipo</td><td><span t-field="doc.category_kind"/></td></tr>
+                            <tr><td>Etiqueta oficial</td><td><span t-field="doc.official_label"/></td></tr>
+                            <tr><td>Modelo</td><td><span t-field="doc.model_reference"/></td></tr>
+                            <tr><td>Deducible IRPF</td><td><span t-field="doc.default_irpf_deductible_percent"/>%</td></tr>
+                            <tr><td>Deducible IVA</td><td><span t-field="doc.default_vat_deductible_percent"/>%</td></tr>
+                            <tr><td>Fuente</td><td><span t-field="doc.official_source_url"/></td></tr>
+                        </table>
+                        <p class="text-muted">Informe interno informativo. La deducibilidad exige soporte documental y revision humana.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

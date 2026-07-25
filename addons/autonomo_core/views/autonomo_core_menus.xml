@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_autonomo_root" name="Autonomo" sequence="35" groups="autonomo_core.group_autonomo_user"/>
+    <menuitem id="menu_autonomo_dashboard" name="Panel" parent="menu_autonomo_root" action="action_autonomo_dashboard" sequence="1"/>
+    <menuitem id="menu_autonomo_master" name="Maestros" parent="menu_autonomo_root" sequence="10"/>
+    <menuitem id="menu_autonomo_activity" name="Actividades" parent="menu_autonomo_master" action="action_autonomo_activity" sequence="10"/>
+    <menuitem id="menu_autonomo_tax_category" name="Categorias fiscales" parent="menu_autonomo_master" action="action_autonomo_tax_category" sequence="20"/>
+    <menuitem id="menu_autonomo_profiles" name="Perfiles" parent="menu_autonomo_root" sequence="20"/>
+    <menuitem id="menu_autonomo_census_profile" name="Censal" parent="menu_autonomo_profiles" action="action_autonomo_census_profile" sequence="10"/>
+    <menuitem id="menu_autonomo_reta_profile" name="RETA" parent="menu_autonomo_profiles" action="action_autonomo_social_security_profile" sequence="20"/>
+    <menuitem id="menu_autonomo_procedures" name="Tramites" parent="menu_autonomo_root" sequence="30"/>
+    <menuitem id="menu_autonomo_procedure" name="Catalogo de tramites" parent="menu_autonomo_procedures" action="action_autonomo_procedure" sequence="10"/>
+    <menuitem id="menu_autonomo_submission" name="Presentaciones" parent="menu_autonomo_procedures" action="action_autonomo_submission" sequence="20"/>
+</odoo>

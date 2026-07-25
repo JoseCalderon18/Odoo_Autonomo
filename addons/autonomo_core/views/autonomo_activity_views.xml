@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_activity_list" model="ir.ui.view">
+        <field name="name">autonomo.activity.list</field>
+        <field name="model">autonomo.activity</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="activity_kind"/>
+                <field name="iae_code"/>
+                <field name="cnae_code"/>
+                <field name="vat_regime"/>
+                <field name="vat_deductible_default_percent"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_activity_form" model="ir.ui.view">
+        <field name="name">autonomo.activity.form</field>
+        <field name="model">autonomo.activity</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_report_autonomo_activity)d" type="action" class="oe_stat_button" icon="fa-print" string="PDF"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="company_id"/>
+                            <field name="activity_kind"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="iae_code"/>
+                            <field name="cnae_code"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fiscalidad">
+                            <group>
+                                <field name="irpf_estimation_method"/>
+                                <field name="vat_regime"/>
+                                <field name="vat_deductible_default_percent"/>
+                                <field name="default_income_account_id"/>
+                                <field name="default_expense_account_id"/>
+                                <field name="default_sale_tax_ids" widget="many2many_tags"/>
+                                <field name="default_purchase_tax_ids" widget="many2many_tags"/>
+                                <field name="default_withholding_tax_id"/>
+                            </group>
+                        </page>
+                        <page string="Ubicacion y codigos">
+                            <group>
+                                <field name="activity_address_partner_id"/>
+                                <field name="tax_office_code"/>
+                                <field name="social_security_activity_code"/>
+                            </group>
+                        </page>
+                        <page string="Fuentes">
+                            <field name="legal_source_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_activity" model="ir.actions.act_window">
+        <field name="name">Actividades</field>
+        <field name="res_model">autonomo.activity</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_autonomo_a4" model="report.paperformat">
+        <field name="name">Autonomo A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">20</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+        <field name="header_line" eval="False"/>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_autonomo_activity" model="ir.actions.report">
+        <field name="name">Ficha de actividad economica</field>
+        <field name="model">autonomo.activity</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_core.report_autonomo_activity</field>
+        <field name="report_file">autonomo_core.report_autonomo_activity</field>
+        <field name="paperformat_id" ref="paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="model_autonomo_activity"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_autonomo_tax_category" model="ir.actions.report">
+        <field name="name">Resumen de categorias fiscales</field>
+        <field name="model">autonomo.tax.category</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_core.report_autonomo_tax_category</field>
+        <field name="report_file">autonomo_core.report_autonomo_tax_category</field>
+        <field name="paperformat_id" ref="paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="model_autonomo_tax_category"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_autonomo_census_profile" model="ir.actions.report">
+        <field name="name">Ficha censal interna</field>
+        <field name="model">autonomo.census.profile</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_core.report_autonomo_census_profile</field>
+        <field name="report_file">autonomo_core.report_autonomo_census_profile</field>
+        <field name="paperformat_id" ref="paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="model_autonomo_census_profile"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_autonomo_reta_profile" model="ir.actions.report">
+        <field name="name">Ficha RETA interna</field>
+        <field name="model">autonomo.social.security.profile</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_core.report_autonomo_reta_profile</field>
+        <field name="report_file">autonomo_core.report_autonomo_reta_profile</field>
+        <field name="paperformat_id" ref="paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="model_autonomo_social_security_profile"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

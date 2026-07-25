@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_procedure_list" model="ir.ui.view">
+        <field name="name">autonomo.procedure.list</field>
+        <field name="model">autonomo.procedure</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="authority"/>
+                <field name="procedure_type"/>
+                <field name="model_code"/>
+                <field name="requires_human_submission"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_procedure_form" model="ir.ui.view">
+        <field name="name">autonomo.procedure.form</field>
+        <field name="model">autonomo.procedure</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="company_id"/>
+                            <field name="authority"/>
+                            <field name="procedure_type"/>
+                            <field name="model_code"/>
+                        </group>
+                        <group>
+                            <field name="periodicity"/>
+                            <field name="trigger_event"/>
+                            <field name="valid_from"/>
+                            <field name="valid_to"/>
+                            <field name="requires_human_submission"/>
+                            <field name="supports_file_generation"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripcion">
+                            <field name="description"/>
+                        </page>
+                        <page string="Requisitos">
+                            <field name="requirement_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="requirement_type"/>
+                                    <field name="mandatory"/>
+                                    <field name="field_model"/>
+                                    <field name="field_name"/>
+                                    <field name="document_type"/>
+                                    <field name="required_condition"/>
+                                    <field name="official_source_url"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Fuentes">
+                            <group>
+                                <field name="official_source_url"/>
+                                <field name="legal_reference"/>
+                                <field name="legal_source_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Presentaciones">
+                            <field name="submission_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="draft_date"/>
+                                    <field name="submitted_at"/>
+                                    <field name="filing_reference"/>
+                                    <field name="checklist_state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_procedure" model="ir.actions.act_window">
+        <field name="name">Tramites</field>
+        <field name="res_model">autonomo.procedure</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_autonomo_submission_list" model="ir.ui.view">
+        <field name="name">autonomo.submission.list</field>
+        <field name="model">autonomo.submission</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="procedure_id"/>
+                <field name="state"/>
+                <field name="checklist_state"/>
+                <field name="draft_date"/>
+                <field name="submitted_at"/>
+                <field name="filing_reference"/>
+                <field name="amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_submission_form" model="ir.ui.view">
+        <field name="name">autonomo.submission.form</field>
+        <field name="model">autonomo.submission</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_refresh_checklist" type="object" string="Actualizar checklist" class="btn-secondary"/>
+                    <button name="action_mark_ready" type="object" string="Marcar listo" class="btn-primary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="procedure_id"/>
+                            <field name="tax_period_id"/>
+                            <field name="checklist_state"/>
+                        </group>
+                        <group>
+                            <field name="draft_date"/>
+                            <field name="review_date"/>
+                            <field name="ready_date"/>
+                            <field name="submitted_at"/>
+                            <field name="submission_channel"/>
+                        </group>
+                    </group>
+                    <group string="Resultado">
+                        <field name="result"/>
+                        <field name="amount"/>
+                        <field name="payment_method"/>
+                        <field name="direct_debit_iban_masked"/>
+                        <field name="filing_reference"/>
+                        <field name="secure_verification_code"/>
+                    </group>
+                    <notebook>
+                        <page string="Checklist">
+                            <field name="checklist_line_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="mandatory"/>
+                                    <field name="required_condition"/>
+                                    <field name="data_present"/>
+                                    <field name="document_attached"/>
+                                    <field name="verified"/>
+                                    <field name="state"/>
+                                    <field name="official_source_url"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Documentos">
+                            <field name="document_ids">
+                                <list editable="bottom">
+                                    <field name="requirement_id"/>
+                                    <field name="attachment_id"/>
+                                    <field name="document_type"/>
+                                    <field name="document_number"/>
+                                    <field name="issue_date"/>
+                                    <field name="valid_until"/>
+                                    <field name="sha256"/>
+                                    <field name="verified"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Aprobacion humana">
+                            <group>
+                                <field name="human_approved_by"/>
+                                <field name="human_approved_at"/>
+                                <field name="source_snapshot_hash"/>
+                                <field name="generated_file_id"/>
+                                <field name="filing_receipt_id"/>
+                            </group>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_submission" model="ir.actions.act_window">
+        <field name="name">Presentaciones y borradores</field>
+        <field name="res_model">autonomo.submission</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

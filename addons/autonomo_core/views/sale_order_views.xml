@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_autonomo_core" model="ir.ui.view">
+        <field name="name">sale.order.form.autonomo.core</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="activity_id"/>
+                <field name="tax_review_state"/>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Autonomo">
+                    <group>
+                        <group>
+                            <field name="work_site_partner_id"/>
+                            <field name="scope_description"/>
+                            <field name="requires_advance"/>
+                            <field name="advance_percent"/>
+                        </group>
+                        <group>
+                            <field name="estimated_cost"/>
+                            <field name="estimated_margin"/>
+                            <field name="estimated_margin_percent"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

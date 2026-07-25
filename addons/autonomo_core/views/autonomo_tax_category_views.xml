@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_tax_category_list" model="ir.ui.view">
+        <field name="name">autonomo.tax.category.list</field>
+        <field name="model">autonomo.tax.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="category_kind"/>
+                <field name="default_irpf_deductible_percent"/>
+                <field name="default_vat_deductible_percent"/>
+                <field name="model_reference"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_tax_category_form" model="ir.ui.view">
+        <field name="name">autonomo.tax.category.form</field>
+        <field name="model">autonomo.tax.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_report_autonomo_tax_category)d" type="action" class="oe_stat_button" icon="fa-print" string="PDF"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="category_kind"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="official_label"/>
+                            <field name="model_reference"/>
+                            <field name="valid_from"/>
+                            <field name="valid_to"/>
+                        </group>
+                    </group>
+                    <group string="Deducibilidad por defecto">
+                        <field name="default_irpf_deductible_percent"/>
+                        <field name="default_vat_deductible_percent"/>
+                    </group>
+                    <notebook>
+                        <page string="Fuentes">
+                            <group>
+                                <field name="legal_reference"/>
+                                <field name="official_source_url"/>
+                                <field name="legal_source_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_tax_category" model="ir.actions.act_window">
+        <field name="name">Categorias fiscales</field>
+        <field name="res_model">autonomo.tax.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
