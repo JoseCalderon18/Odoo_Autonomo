@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_autonomo_ai_review">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Informe de revisión IA</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>Tipo:</strong> <span t-field="doc.review_type"/></p>
+                        <p><strong>Riesgo:</strong> <span t-field="doc.risk_level"/> | <strong>Estado:</strong> <span t-field="doc.state"/></p>
+                        <h4>Pregunta</h4>
+                        <p><span t-field="doc.question"/></p>
+                        <h4>Respuesta</h4>
+                        <p><span t-field="doc.answer"/></p>
+                        <h4>Fuentes</h4>
+                        <ul>
+                            <li t-foreach="doc.citation_ids" t-as="citation">
+                                <span t-field="citation.title"/> - <span t-field="citation.official_url"/> - verificado <span t-field="citation.verified_at"/>
+                            </li>
+                        </ul>
+                        <p class="text-muted">Informe interno. No sustituye asesoramiento fiscal, jurídico ni presentación oficial.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="report_autonomo_compliance_issue">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Informe de incidencia</h2>
+                        <p><strong>Incidencia:</strong> <span t-field="doc.name"/> | <strong>Riesgo:</strong> <span t-field="doc.risk_level"/></p>
+                        <p><strong>Tipo:</strong> <span t-field="doc.issue_type"/> | <strong>Estado:</strong> <span t-field="doc.state"/></p>
+                        <p><span t-field="doc.description"/></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

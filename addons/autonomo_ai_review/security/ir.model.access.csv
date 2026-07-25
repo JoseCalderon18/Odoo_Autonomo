@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_autonomo_ai_review_user,autonomo.ai.review user,model_autonomo_ai_review,autonomo_core.group_autonomo_user,1,1,1,0
+access_autonomo_ai_review_reviewer,autonomo.ai.review reviewer,model_autonomo_ai_review,autonomo_core.group_autonomo_ai_reviewer,1,1,1,0
+access_autonomo_ai_review_admin,autonomo.ai.review admin,model_autonomo_ai_review,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_ai_citation_user,autonomo.ai.citation user,model_autonomo_ai_citation,autonomo_core.group_autonomo_user,1,0,0,0
+access_autonomo_ai_citation_reviewer,autonomo.ai.citation reviewer,model_autonomo_ai_citation,autonomo_core.group_autonomo_ai_reviewer,1,1,1,0
+access_autonomo_ai_citation_admin,autonomo.ai.citation admin,model_autonomo_ai_citation,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_compliance_issue_user,autonomo.compliance.issue user,model_autonomo_compliance_issue,autonomo_core.group_autonomo_user,1,1,1,0
+access_autonomo_compliance_issue_reviewer,autonomo.compliance.issue reviewer,model_autonomo_compliance_issue,autonomo_core.group_autonomo_ai_reviewer,1,1,1,0
+access_autonomo_compliance_issue_admin,autonomo.compliance.issue admin,model_autonomo_compliance_issue,autonomo_core.group_autonomo_admin,1,1,1,1
