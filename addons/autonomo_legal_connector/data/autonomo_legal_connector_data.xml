@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="legal_config_boe_default" model="autonomo.legal.config">
+        <field name="name">BOE legislacion consolidada</field>
+        <field name="service_url">https://www.boe.es/datosabiertos/api/legislacion-consolidada</field>
+        <field name="auth_type">none</field>
+        <field name="timeout_seconds">20</field>
+        <field name="verify_ssl">1</field>
+        <field name="anonymization_mode">strict</field>
+    </record>
+
+    <record id="autonomo_core.source_boe_api_consolidada" model="autonomo.legal.source">
+        <field name="boe_identifier">BOE-API-CONSOLIDADA</field>
+    </record>
+    <record id="autonomo_core.source_boe_autonomo" model="autonomo.legal.source">
+        <field name="boe_identifier">BOE-A-2007-13409</field>
+    </record>
+    <record id="autonomo_core.source_boe_irpf" model="autonomo.legal.source">
+        <field name="boe_identifier">BOE-A-2006-20764</field>
+    </record>
+    <record id="source_boe_reglamento_irpf" model="autonomo.legal.source">
+        <field name="name">Reglamento del IRPF</field>
+        <field name="code">BOE-A-2007-6820</field>
+        <field name="boe_identifier">BOE-A-2007-6820</field>
+        <field name="authority">boe</field>
+        <field name="source_type">regulation</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-2007-6820</field>
+    </record>
+    <record id="autonomo_core.source_boe_iva" model="autonomo.legal.source">
+        <field name="boe_identifier">BOE-A-1992-28740</field>
+    </record>
+    <record id="source_boe_reglamento_iva" model="autonomo.legal.source">
+        <field name="name">Reglamento del IVA</field>
+        <field name="code">BOE-A-1992-28925</field>
+        <field name="boe_identifier">BOE-A-1992-28925</field>
+        <field name="authority">boe</field>
+        <field name="source_type">regulation</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-1992-28925</field>
+    </record>
+    <record id="autonomo_core.source_boe_facturacion" model="autonomo.legal.source">
+        <field name="boe_identifier">BOE-A-2012-14696</field>
+    </record>
+    <record id="source_boe_libros_irpf" model="autonomo.legal.source">
+        <field name="name">Libros registro del IRPF</field>
+        <field name="code">BOE-A-2019-10487</field>
+        <field name="boe_identifier">BOE-A-2019-10487</field>
+        <field name="authority">boe</field>
+        <field name="source_type">administrative_instruction</field>
+        <field name="official_url">https://www.boe.es/buscar/doc.php?id=BOE-A-2019-10487</field>
+    </record>
+    <record id="source_boe_lgt" model="autonomo.legal.source">
+        <field name="name">Ley General Tributaria</field>
+        <field name="code">BOE-A-2003-23186</field>
+        <field name="boe_identifier">BOE-A-2003-23186</field>
+        <field name="authority">boe</field>
+        <field name="source_type">law</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-2003-23186</field>
+    </record>
+    <record id="source_boe_cotizacion_autonomos" model="autonomo.legal.source">
+        <field name="name">Cotizacion de autonomos por rendimientos</field>
+        <field name="code">BOE-A-2022-12482</field>
+        <field name="boe_identifier">BOE-A-2022-12482</field>
+        <field name="authority">boe</field>
+        <field name="source_type">law</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-2022-12482</field>
+    </record>
+    <record id="source_boe_sistemas_facturacion" model="autonomo.legal.source">
+        <field name="name">Sistemas informaticos de facturacion</field>
+        <field name="code">BOE-A-2023-24840</field>
+        <field name="boe_identifier">BOE-A-2023-24840</field>
+        <field name="authority">boe</field>
+        <field name="source_type">regulation</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-2023-24840</field>
+    </record>
+    <record id="source_boe_especificaciones_facturacion" model="autonomo.legal.source">
+        <field name="name">Especificaciones tecnicas de sistemas de facturacion</field>
+        <field name="code">BOE-A-2024-22138</field>
+        <field name="boe_identifier">BOE-A-2024-22138</field>
+        <field name="authority">boe</field>
+        <field name="source_type">technical_specification</field>
+        <field name="official_url">https://www.boe.es/buscar/doc.php?id=BOE-A-2024-22138</field>
+    </record>
+</odoo>

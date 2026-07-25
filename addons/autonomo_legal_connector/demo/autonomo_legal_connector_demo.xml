@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="legal_query_demo_alta_censal" model="autonomo.legal.query">
+        <field name="name">Consulta demo alta censal</field>
+        <field name="query_type">document</field>
+        <field name="question">Que fuentes oficiales debo revisar antes de preparar un alta censal de autonomo?</field>
+        <field name="anonymized_payload">Sin datos personales. Actividad demo de montaje.</field>
+        <field name="state">needs_review</field>
+        <field name="answer">Consulta demo pendiente de revision humana. Deben revisarse fuentes AEAT y BOE vigentes.</field>
+        <field name="citation_ids" eval="[(0, 0, {'source_id': ref('autonomo_core.source_aeat_036'), 'citation_kind': 'metadata', 'title': 'Modelo 036 AEAT', 'official_url': 'https://sede.agenciatributaria.gob.es/Sede/procedimientoini/G322.shtml'})]"/>
+    </record>
+</odoo>

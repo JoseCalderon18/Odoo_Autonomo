@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_legal_source_list_boe" model="ir.ui.view">
+        <field name="name">autonomo.legal.source.list.boe</field>
+        <field name="model">autonomo.legal.source</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="authority"/>
+                <field name="boe_identifier"/>
+                <field name="boe_consolidation_state"/>
+                <field name="boe_effective_date"/>
+                <field name="boe_last_sync_at"/>
+                <field name="boe_sync_state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_legal_source_form_boe" model="ir.ui.view">
+        <field name="name">autonomo.legal.source.form.boe</field>
+        <field name="model">autonomo.legal.source</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_sync_boe_metadata" type="object" string="Sincronizar metadatos" class="btn-secondary"/>
+                    <button name="action_sync_boe_metadata_eli" type="object" string="Sincronizar ELI" class="btn-secondary"/>
+                    <button name="action_sync_boe_analysis" type="object" string="Sincronizar analisis" class="btn-secondary"/>
+                    <button name="action_sync_boe_index" type="object" string="Sincronizar indice" class="btn-secondary"/>
+                    <button name="action_sync_boe_block_versions" type="object" string="Sincronizar versiones" class="btn-secondary"/>
+                    <button name="action_sync_boe_full" type="object" string="Sincronizar BOE" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="boe_identifier"/>
+                            <field name="authority"/>
+                            <field name="source_type"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="boe_sync_state"/>
+                            <field name="boe_last_sync_at"/>
+                            <field name="verified_at"/>
+                            <field name="official_url"/>
+                            <field name="boe_html_consolidated_url"/>
+                                <field name="boe_eli_url"/>
+                                <field name="boe_eli_metadata_hash"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Metadatos BOE">
+                            <group>
+                                <field name="boe_update_at"/>
+                                <field name="boe_scope_code"/>
+                                <field name="boe_scope_name"/>
+                                <field name="boe_department_code"/>
+                                <field name="boe_department_name"/>
+                                <field name="boe_rank_code"/>
+                                <field name="boe_rank_name"/>
+                                <field name="boe_disposition_date"/>
+                                <field name="boe_official_number"/>
+                                <field name="boe_title"/>
+                                <field name="boe_journal"/>
+                                <field name="publication_date"/>
+                                <field name="boe_journal_number"/>
+                                <field name="boe_effective_date"/>
+                                <field name="boe_derogation_status"/>
+                                <field name="boe_annulment_status"/>
+                                <field name="boe_expired_validity"/>
+                                <field name="boe_consolidation_state_code"/>
+                                <field name="boe_consolidation_state"/>
+                            </group>
+                        </page>
+                        <page string="Materias">
+                            <field name="matter_ids">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Relaciones">
+                            <field name="relation_ids">
+                                <list>
+                                    <field name="relation_kind"/>
+                                    <field name="related_identifier"/>
+                                    <field name="relation_code"/>
+                                    <field name="relation_label"/>
+                                    <field name="requires_human_review"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Bloques">
+                            <field name="block_ids">
+                                <list>
+                                    <field name="block_identifier"/>
+                                    <field name="block_type"/>
+                                    <field name="title"/>
+                                    <field name="last_update_date"/>
+                                    <field name="expiration_date"/>
+                                    <field name="content_hash"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Hashes">
+                            <group>
+                                <field name="boe_metadata_hash"/>
+                                <field name="boe_analysis_hash"/>
+                                <field name="boe_index_hash"/>
+                                <field name="boe_last_error"/>
+                            </group>
+                            <field name="boe_eli_metadata_xml"/>
+                        </page>
+                        <page string="Aviso">
+                            <field name="legal_disclaimer"/>
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_legal_source_boe" model="ir.actions.act_window">
+        <field name="name">Fuentes BOE</field>
+        <field name="res_model">autonomo.legal.source</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('authority','=','boe')]</field>
+    </record>
+
+    <record id="view_autonomo_legal_block_form" model="ir.ui.view">
+        <field name="name">autonomo.legal.block.form</field>
+        <field name="model">autonomo.legal.block</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_sync_versions" type="object" string="Sincronizar versiones" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="source_id"/>
+                        <field name="block_identifier"/>
+                        <field name="block_type"/>
+                        <field name="title"/>
+                        <field name="last_update_date"/>
+                        <field name="expiration_date"/>
+                        <field name="official_url"/>
+                        <field name="content_hash"/>
+                    </group>
+                    <notebook>
+                        <page string="Versiones">
+                            <field name="version_ids">
+                                <list>
+                                    <field name="modifier_identifier"/>
+                                    <field name="publication_date"/>
+                                    <field name="effective_date"/>
+                                    <field name="content_hash"/>
+                                    <field name="embedding_hash"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_autonomo_legal_block_list" model="ir.ui.view">
+        <field name="name">autonomo.legal.block.list</field>
+        <field name="model">autonomo.legal.block</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="source_id"/>
+                <field name="block_identifier"/>
+                <field name="block_type"/>
+                <field name="title"/>
+                <field name="last_update_date"/>
+                <field name="expiration_date"/>
+                <field name="content_hash"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_autonomo_legal_block" model="ir.actions.act_window">
+        <field name="name">Bloques BOE</field>
+        <field name="res_model">autonomo.legal.block</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
