@@ -1,0 +1,12 @@
+.env
+backups/*
+!backups/.gitkeep
+*.dump
+*.sql
+*.zip
+*.tar
+*.tar.gz
+__pycache__/
+*.py[cod]
+.vscode/
+.idea/
