@@ -20,10 +20,10 @@ class AutonomoProcedure(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "authority, code"
 
-    name = fields.Char(required=True, tracking=True)
-    code = fields.Char(required=True, index=True)
-    company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company)
-    authority = fields.Selection(AUTHORITY_SELECTION, required=True, default="aeat")
+    name = fields.Char(string="Nombre", required=True, tracking=True)
+    code = fields.Char(string="Codigo", required=True, index=True)
+    company_id = fields.Many2one("res.company", string="Empresa", required=True, default=lambda self: self.env.company)
+    authority = fields.Selection(AUTHORITY_SELECTION, string="Organismo", required=True, default="aeat")
     procedure_type = fields.Selection(
         [
             ("registration", "Alta"),
@@ -36,27 +36,29 @@ class AutonomoProcedure(models.Model):
             ("document_submission", "Aportacion documental"),
             ("other", "Otro"),
         ],
+        string="Tipo de tramite",
         required=True,
         default="other",
     )
-    model_code = fields.Char()
-    description = fields.Text()
-    trigger_event = fields.Char()
+    model_code = fields.Char(string="Modelo")
+    description = fields.Text(string="Descripcion")
+    trigger_event = fields.Char(string="Evento disparador")
     periodicity = fields.Selection(
         [("once", "Una vez"), ("monthly", "Mensual"), ("quarterly", "Trimestral"), ("annual", "Anual"), ("event", "Por evento")],
+        string="Periodicidad",
         default="event",
     )
-    valid_from = fields.Date()
-    valid_to = fields.Date()
-    official_source_url = fields.Char()
-    legal_reference = fields.Char()
+    valid_from = fields.Date(string="Vigente desde")
+    valid_to = fields.Date(string="Vigente hasta")
+    official_source_url = fields.Char(string="URL fuente oficial")
+    legal_reference = fields.Char(string="Referencia legal")
     legal_source_ids = fields.Many2many("autonomo.legal.source", string="Fuentes oficiales")
-    requires_human_submission = fields.Boolean(default=True)
-    supports_file_generation = fields.Boolean(default=False)
-    requirement_ids = fields.One2many("autonomo.procedure.requirement", "procedure_id")
-    submission_ids = fields.One2many("autonomo.submission", "procedure_id")
-    active = fields.Boolean(default=True)
-    notes = fields.Text()
+    requires_human_submission = fields.Boolean(string="Requiere presentacion humana", default=True)
+    supports_file_generation = fields.Boolean(string="Permite generar archivo", default=False)
+    requirement_ids = fields.One2many("autonomo.procedure.requirement", "procedure_id", string="Requisitos")
+    submission_ids = fields.One2many("autonomo.submission", "procedure_id", string="Presentaciones")
+    active = fields.Boolean(string="Activo", default=True)
+    notes = fields.Text(string="Notas")
 
     _code_company_uniq = models.Constraint(
         "UNIQUE(company_id, code)",
@@ -69,8 +71,8 @@ class AutonomoProcedureRequirement(models.Model):
     _description = "Requisito de tramite autonomo"
     _order = "procedure_id, sequence, id"
 
-    procedure_id = fields.Many2one("autonomo.procedure", required=True, ondelete="cascade")
-    sequence = fields.Integer(default=10)
+    procedure_id = fields.Many2one("autonomo.procedure", string="Tramite", required=True, ondelete="cascade")
+    sequence = fields.Integer(string="Secuencia", default=10)
     requirement_type = fields.Selection(
         [
             ("field", "Dato"),
@@ -82,21 +84,22 @@ class AutonomoProcedureRequirement(models.Model):
             ("attachment", "Adjunto"),
             ("other", "Otro"),
         ],
+        string="Tipo de requisito",
         required=True,
         default="field",
     )
-    name = fields.Char(required=True)
-    description = fields.Text()
-    field_model = fields.Char()
-    field_name = fields.Char()
-    document_type = fields.Char()
-    required_condition = fields.Char()
-    mandatory = fields.Boolean(default=True)
-    valid_from = fields.Date()
-    valid_to = fields.Date()
-    official_source_url = fields.Char()
-    legal_reference = fields.Char()
-    active = fields.Boolean(default=True)
+    name = fields.Char(string="Nombre", required=True)
+    description = fields.Text(string="Descripcion")
+    field_model = fields.Char(string="Modelo del dato")
+    field_name = fields.Char(string="Campo del dato")
+    document_type = fields.Char(string="Tipo de documento")
+    required_condition = fields.Char(string="Condicion")
+    mandatory = fields.Boolean(string="Obligatorio", default=True)
+    valid_from = fields.Date(string="Vigente desde")
+    valid_to = fields.Date(string="Vigente hasta")
+    official_source_url = fields.Char(string="URL fuente oficial")
+    legal_reference = fields.Char(string="Referencia legal")
+    active = fields.Boolean(string="Activo", default=True)
 
     @api.constrains("valid_from", "valid_to")
     def _check_dates(self):
@@ -111,10 +114,10 @@ class AutonomoSubmission(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "submitted_at desc, draft_date desc, id desc"
 
-    name = fields.Char(required=True)
-    company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company)
-    procedure_id = fields.Many2one("autonomo.procedure", required=True)
-    tax_period_id = fields.Many2one("autonomo.tax.period")
+    name = fields.Char(string="Nombre", required=True)
+    company_id = fields.Many2one("res.company", string="Empresa", required=True, default=lambda self: self.env.company)
+    procedure_id = fields.Many2one("autonomo.procedure", string="Tramite", required=True)
+    tax_period_id = fields.Many2one("autonomo.tax.period", string="Periodo fiscal")
     state = fields.Selection(
         [
             ("draft", "Borrador"),
@@ -127,41 +130,46 @@ class AutonomoSubmission(models.Model):
             ("corrected", "Corregido"),
             ("cancelled", "Cancelado"),
         ],
+        string="Estado",
         default="draft",
         required=True,
         tracking=True,
     )
-    draft_date = fields.Date(default=fields.Date.context_today)
-    review_date = fields.Date()
-    ready_date = fields.Date()
-    submitted_at = fields.Datetime()
+    draft_date = fields.Date(string="Fecha de borrador", default=fields.Date.context_today)
+    review_date = fields.Date(string="Fecha de revision")
+    ready_date = fields.Date(string="Fecha listo")
+    submitted_at = fields.Datetime(string="Fecha de presentacion")
     submission_channel = fields.Selection(
         [("electronic", "Electronico"), ("paper", "Papel"), ("representative", "Representante"), ("other", "Otro")],
+        string="Canal de presentacion",
     )
-    filing_reference = fields.Char()
+    filing_reference = fields.Char(string="Referencia de presentacion")
     secure_verification_code = fields.Char(string="CSV")
     result = fields.Selection(
-        [("pending", "Pendiente"), ("positive", "A ingresar"), ("negative", "A devolver"), ("zero", "Sin actividad/resultado cero"), ("other", "Otro")]
+        [("pending", "Pendiente"), ("positive", "A ingresar"), ("negative", "A devolver"), ("zero", "Sin actividad/resultado cero"), ("other", "Otro")],
+        string="Resultado",
     )
-    amount = fields.Monetary(currency_field="currency_id")
-    currency_id = fields.Many2one("res.currency", related="company_id.currency_id", store=True, readonly=True)
+    amount = fields.Monetary(string="Importe", currency_field="currency_id")
+    currency_id = fields.Many2one("res.currency", string="Moneda", related="company_id.currency_id", store=True, readonly=True)
     payment_method = fields.Selection(
-        [("none", "Sin pago"), ("direct_debit", "Domiciliacion"), ("bank_transfer", "Transferencia"), ("card", "Tarjeta"), ("other", "Otro")]
+        [("none", "Sin pago"), ("direct_debit", "Domiciliacion"), ("bank_transfer", "Transferencia"), ("card", "Tarjeta"), ("other", "Otro")],
+        string="Metodo de pago",
     )
-    direct_debit_iban_masked = fields.Char()
-    generated_file_id = fields.Many2one("ir.attachment")
-    filing_receipt_id = fields.Many2one("ir.attachment")
-    human_approved_by = fields.Many2one("res.users")
-    human_approved_at = fields.Datetime()
-    source_snapshot_hash = fields.Char()
-    document_ids = fields.One2many("autonomo.submission.document", "submission_id")
-    checklist_line_ids = fields.One2many("autonomo.submission.checklist.line", "submission_id")
+    direct_debit_iban_masked = fields.Char(string="IBAN domiciliacion enmascarado")
+    generated_file_id = fields.Many2one("ir.attachment", string="Archivo generado")
+    filing_receipt_id = fields.Many2one("ir.attachment", string="Justificante de presentacion")
+    human_approved_by = fields.Many2one("res.users", string="Aprobado por")
+    human_approved_at = fields.Datetime(string="Fecha de aprobacion")
+    source_snapshot_hash = fields.Char(string="Hash snapshot fuente")
+    document_ids = fields.One2many("autonomo.submission.document", "submission_id", string="Documentos")
+    checklist_line_ids = fields.One2many("autonomo.submission.checklist.line", "submission_id", string="Checklist")
     checklist_state = fields.Selection(
         [("pending", "Pendiente"), ("incomplete", "Incompleto"), ("verified", "Verificado")],
+        string="Estado del checklist",
         compute="_compute_checklist_state",
         store=True,
     )
-    notes = fields.Text()
+    notes = fields.Text(string="Notas")
 
     @api.depends("checklist_line_ids.mandatory", "checklist_line_ids.verified", "checklist_line_ids.data_present", "checklist_line_ids.document_attached")
     def _compute_checklist_state(self):
@@ -213,24 +221,25 @@ class AutonomoSubmissionChecklistLine(models.Model):
     _description = "Linea checklist tramite autonomo"
     _order = "submission_id, sequence, id"
 
-    submission_id = fields.Many2one("autonomo.submission", required=True, ondelete="cascade")
-    requirement_id = fields.Many2one("autonomo.procedure.requirement")
-    sequence = fields.Integer(related="requirement_id.sequence", store=True, readonly=True)
-    name = fields.Char(required=True)
-    mandatory = fields.Boolean(default=True)
-    required_condition = fields.Char()
+    submission_id = fields.Many2one("autonomo.submission", string="Presentacion", required=True, ondelete="cascade")
+    requirement_id = fields.Many2one("autonomo.procedure.requirement", string="Requisito")
+    sequence = fields.Integer(string="Secuencia", related="requirement_id.sequence", store=True, readonly=True)
+    name = fields.Char(string="Nombre", required=True)
+    mandatory = fields.Boolean(string="Obligatorio", default=True)
+    required_condition = fields.Char(string="Condicion")
     data_present = fields.Boolean(string="Dato presente")
     document_attached = fields.Boolean(string="Documento adjunto")
-    verified = fields.Boolean()
-    verified_by = fields.Many2one("res.users")
-    verified_at = fields.Datetime()
-    official_source_url = fields.Char()
+    verified = fields.Boolean(string="Verificado")
+    verified_by = fields.Many2one("res.users", string="Verificado por")
+    verified_at = fields.Datetime(string="Fecha de verificacion")
+    official_source_url = fields.Char(string="URL fuente oficial")
     state = fields.Selection(
         [("missing", "Falta"), ("pending", "Pendiente"), ("verified", "Verificado")],
+        string="Estado",
         compute="_compute_state",
         store=True,
     )
-    requirement_ok = fields.Boolean(compute="_compute_state", store=True)
+    requirement_ok = fields.Boolean(string="Requisito correcto", compute="_compute_state", store=True)
 
     @api.depends("mandatory", "data_present", "document_attached", "verified")
     def _compute_state(self):
@@ -253,20 +262,20 @@ class AutonomoSubmissionDocument(models.Model):
     _description = "Documento de presentacion autonomo"
     _order = "submission_id, id"
 
-    submission_id = fields.Many2one("autonomo.submission", required=True, ondelete="cascade")
-    requirement_id = fields.Many2one("autonomo.procedure.requirement")
-    attachment_id = fields.Many2one("ir.attachment", required=True)
-    document_type = fields.Char()
-    document_number = fields.Char()
-    issue_date = fields.Date()
-    valid_until = fields.Date()
-    issuer = fields.Char()
-    sha256 = fields.Char(compute="_compute_sha256", store=True)
-    contains_personal_data = fields.Boolean(default=True)
-    verified = fields.Boolean()
-    verified_by = fields.Many2one("res.users")
-    verified_at = fields.Datetime()
-    verification_notes = fields.Text()
+    submission_id = fields.Many2one("autonomo.submission", string="Presentacion", required=True, ondelete="cascade")
+    requirement_id = fields.Many2one("autonomo.procedure.requirement", string="Requisito")
+    attachment_id = fields.Many2one("ir.attachment", string="Adjunto", required=True)
+    document_type = fields.Char(string="Tipo de documento")
+    document_number = fields.Char(string="Numero de documento")
+    issue_date = fields.Date(string="Fecha de emision")
+    valid_until = fields.Date(string="Valido hasta")
+    issuer = fields.Char(string="Emisor")
+    sha256 = fields.Char(string="Hash SHA-256", compute="_compute_sha256", store=True)
+    contains_personal_data = fields.Boolean(string="Contiene datos personales", default=True)
+    verified = fields.Boolean(string="Verificado")
+    verified_by = fields.Many2one("res.users", string="Verificado por")
+    verified_at = fields.Datetime(string="Fecha de verificacion")
+    verification_notes = fields.Text(string="Notas de verificacion")
 
     @api.depends("attachment_id.datas")
     def _compute_sha256(self):

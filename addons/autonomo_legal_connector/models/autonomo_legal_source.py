@@ -14,38 +14,38 @@ def _parse_boe_date(value):
 class AutonomoLegalSource(models.Model):
     _inherit = "autonomo.legal.source"
 
-    boe_identifier = fields.Char(index=True)
+    boe_identifier = fields.Char(string="Identificador BOE", index=True)
     boe_update_at = fields.Datetime(string="Fecha actualizacion BOE")
-    boe_scope_code = fields.Char()
-    boe_scope_name = fields.Char()
-    boe_department_code = fields.Char()
-    boe_department_name = fields.Char()
-    boe_rank_code = fields.Char()
-    boe_rank_name = fields.Char()
-    boe_disposition_date = fields.Date()
-    boe_official_number = fields.Char()
-    boe_title = fields.Char()
-    boe_journal = fields.Char()
-    boe_journal_number = fields.Char()
-    boe_effective_date = fields.Date()
-    boe_derogation_status = fields.Selection([("N", "No derogada"), ("S", "Derogada"), ("unknown", "Desconocido")], default="unknown")
-    boe_annulment_status = fields.Selection([("N", "No anulada"), ("S", "Anulada"), ("unknown", "Desconocido")], default="unknown")
-    boe_expired_validity = fields.Selection([("N", "No agotada"), ("S", "Agotada"), ("unknown", "Desconocido")], default="unknown")
-    boe_consolidation_state_code = fields.Char()
-    boe_consolidation_state = fields.Char()
-    boe_eli_url = fields.Char()
-    boe_eli_metadata_hash = fields.Char()
-    boe_eli_metadata_xml = fields.Text()
-    boe_html_consolidated_url = fields.Char()
-    boe_metadata_hash = fields.Char()
-    boe_analysis_hash = fields.Char()
-    boe_index_hash = fields.Char()
-    boe_last_sync_at = fields.Datetime()
-    boe_sync_state = fields.Selection([("pending", "Pendiente"), ("ok", "Correcto"), ("error", "Error")], default="pending")
-    boe_last_error = fields.Text()
-    matter_ids = fields.One2many("autonomo.legal.matter", "source_id")
-    relation_ids = fields.One2many("autonomo.legal.relation", "source_id")
-    block_ids = fields.One2many("autonomo.legal.block", "source_id")
+    boe_scope_code = fields.Char(string="Codigo ambito BOE")
+    boe_scope_name = fields.Char(string="Ambito BOE")
+    boe_department_code = fields.Char(string="Codigo departamento BOE")
+    boe_department_name = fields.Char(string="Departamento BOE")
+    boe_rank_code = fields.Char(string="Codigo rango BOE")
+    boe_rank_name = fields.Char(string="Rango BOE")
+    boe_disposition_date = fields.Date(string="Fecha de disposicion")
+    boe_official_number = fields.Char(string="Numero oficial")
+    boe_title = fields.Char(string="Titulo BOE")
+    boe_journal = fields.Char(string="Diario oficial")
+    boe_journal_number = fields.Char(string="Numero de diario")
+    boe_effective_date = fields.Date(string="Fecha de vigencia")
+    boe_derogation_status = fields.Selection([("N", "No derogada"), ("S", "Derogada"), ("unknown", "Desconocido")], string="Estado de derogacion", default="unknown")
+    boe_annulment_status = fields.Selection([("N", "No anulada"), ("S", "Anulada"), ("unknown", "Desconocido")], string="Estado de anulacion", default="unknown")
+    boe_expired_validity = fields.Selection([("N", "No agotada"), ("S", "Agotada"), ("unknown", "Desconocido")], string="Vigencia agotada", default="unknown")
+    boe_consolidation_state_code = fields.Char(string="Codigo estado consolidacion")
+    boe_consolidation_state = fields.Char(string="Estado de consolidacion")
+    boe_eli_url = fields.Char(string="URL ELI")
+    boe_eli_metadata_hash = fields.Char(string="Hash metadata ELI")
+    boe_eli_metadata_xml = fields.Text(string="Metadata ELI XML")
+    boe_html_consolidated_url = fields.Char(string="URL HTML consolidada")
+    boe_metadata_hash = fields.Char(string="Hash metadatos BOE")
+    boe_analysis_hash = fields.Char(string="Hash analisis BOE")
+    boe_index_hash = fields.Char(string="Hash indice BOE")
+    boe_last_sync_at = fields.Datetime(string="Ultima sincronizacion BOE")
+    boe_sync_state = fields.Selection([("pending", "Pendiente"), ("ok", "Correcto"), ("error", "Error")], string="Estado sincronizacion BOE", default="pending")
+    boe_last_error = fields.Text(string="Ultimo error BOE")
+    matter_ids = fields.One2many("autonomo.legal.matter", "source_id", string="Materias")
+    relation_ids = fields.One2many("autonomo.legal.relation", "source_id", string="Relaciones")
+    block_ids = fields.One2many("autonomo.legal.block", "source_id", string="Bloques")
 
     def action_sync_boe_metadata(self):
         for source in self:
@@ -237,9 +237,9 @@ class AutonomoLegalMatter(models.Model):
     _description = "Materia BOE"
     _order = "code"
 
-    source_id = fields.Many2one("autonomo.legal.source", required=True, ondelete="cascade")
-    code = fields.Char(index=True)
-    name = fields.Char(required=True)
+    source_id = fields.Many2one("autonomo.legal.source", string="Fuente", required=True, ondelete="cascade")
+    code = fields.Char(string="Codigo", index=True)
+    name = fields.Char(string="Nombre", required=True)
 
 
 class AutonomoLegalRelation(models.Model):
@@ -247,13 +247,13 @@ class AutonomoLegalRelation(models.Model):
     _description = "Relacion normativa BOE"
     _order = "relation_kind, related_identifier"
 
-    source_id = fields.Many2one("autonomo.legal.source", required=True, ondelete="cascade")
-    relation_kind = fields.Selection([("previous", "Anterior"), ("later", "Posterior")], required=True)
-    related_identifier = fields.Char(index=True)
-    relation_code = fields.Char()
-    relation_label = fields.Char()
-    description = fields.Text()
-    requires_human_review = fields.Boolean(compute="_compute_requires_human_review", store=True)
+    source_id = fields.Many2one("autonomo.legal.source", string="Fuente", required=True, ondelete="cascade")
+    relation_kind = fields.Selection([("previous", "Anterior"), ("later", "Posterior")], string="Tipo de relacion", required=True)
+    related_identifier = fields.Char(string="Identificador relacionado", index=True)
+    relation_code = fields.Char(string="Codigo de relacion")
+    relation_label = fields.Char(string="Etiqueta de relacion")
+    description = fields.Text(string="Descripcion")
+    requires_human_review = fields.Boolean(string="Requiere revision humana", compute="_compute_requires_human_review", store=True)
 
     @api.depends("relation_label")
     def _compute_requires_human_review(self):
@@ -267,16 +267,16 @@ class AutonomoLegalBlock(models.Model):
     _description = "Bloque consolidado BOE"
     _order = "source_id, block_identifier"
 
-    source_id = fields.Many2one("autonomo.legal.source", required=True, ondelete="cascade")
-    block_identifier = fields.Char(required=True, index=True)
-    block_type = fields.Char()
-    title = fields.Char()
-    last_update_date = fields.Date()
-    expiration_date = fields.Date()
-    official_url = fields.Char()
-    content_hash = fields.Char()
-    version_ids = fields.One2many("autonomo.legal.block.version", "block_id")
-    active = fields.Boolean(default=True)
+    source_id = fields.Many2one("autonomo.legal.source", string="Fuente", required=True, ondelete="cascade")
+    block_identifier = fields.Char(string="Identificador de bloque", required=True, index=True)
+    block_type = fields.Char(string="Tipo de bloque")
+    title = fields.Char(string="Titulo")
+    last_update_date = fields.Date(string="Fecha de actualizacion")
+    expiration_date = fields.Date(string="Fecha de caducidad")
+    official_url = fields.Char(string="URL oficial")
+    content_hash = fields.Char(string="Hash del contenido")
+    version_ids = fields.One2many("autonomo.legal.block.version", "block_id", string="Versiones")
+    active = fields.Boolean(string="Activo", default=True)
 
     _block_source_uniq = models.Constraint(
         "UNIQUE(source_id, block_identifier)",
@@ -351,15 +351,15 @@ class AutonomoLegalBlockVersion(models.Model):
     _description = "Version de bloque BOE"
     _order = "block_id, effective_date desc, publication_date desc"
 
-    block_id = fields.Many2one("autonomo.legal.block", required=True, ondelete="cascade")
-    source_id = fields.Many2one("autonomo.legal.source", required=True, ondelete="cascade")
-    modifier_identifier = fields.Char(required=True, index=True)
-    publication_date = fields.Date(required=True)
-    effective_date = fields.Date()
-    content_html = fields.Html(sanitize=False)
-    content_hash = fields.Char(required=True, index=True)
-    embedding_hash = fields.Char()
-    active = fields.Boolean(default=True)
+    block_id = fields.Many2one("autonomo.legal.block", string="Bloque", required=True, ondelete="cascade")
+    source_id = fields.Many2one("autonomo.legal.source", string="Fuente", required=True, ondelete="cascade")
+    modifier_identifier = fields.Char(string="Norma modificadora", required=True, index=True)
+    publication_date = fields.Date(string="Fecha de publicacion", required=True)
+    effective_date = fields.Date(string="Fecha de vigencia")
+    content_html = fields.Html(string="Contenido HTML", sanitize=False)
+    content_hash = fields.Char(string="Hash del contenido", required=True, index=True)
+    embedding_hash = fields.Char(string="Hash de embedding")
+    active = fields.Boolean(string="Activo", default=True)
 
     def _element_to_string(self, element):
         import xml.etree.ElementTree as ET

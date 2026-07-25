@@ -8,9 +8,9 @@ class AutonomoTaxCategory(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "company_id, code"
 
-    code = fields.Char(required=True)
-    name = fields.Char(required=True, tracking=True)
-    company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company, index=True)
+    code = fields.Char(string="Codigo", required=True)
+    name = fields.Char(string="Nombre", required=True, tracking=True)
+    company_id = fields.Many2one("res.company", string="Empresa", required=True, default=lambda self: self.env.company, index=True)
     category_kind = fields.Selection(
         [
             ("income", "Ingreso"),
@@ -19,20 +19,21 @@ class AutonomoTaxCategory(models.Model):
             ("withholding", "Retencion"),
             ("other", "Otro"),
         ],
+        string="Tipo de categoria",
         required=True,
         default="expense",
     )
-    official_label = fields.Char()
-    model_reference = fields.Char()
-    valid_from = fields.Date()
-    valid_to = fields.Date()
-    default_irpf_deductible_percent = fields.Float(default=100.0)
-    default_vat_deductible_percent = fields.Float(default=100.0)
-    legal_reference = fields.Char()
-    official_source_url = fields.Char()
+    official_label = fields.Char(string="Etiqueta oficial")
+    model_reference = fields.Char(string="Modelo relacionado")
+    valid_from = fields.Date(string="Vigente desde")
+    valid_to = fields.Date(string="Vigente hasta")
+    default_irpf_deductible_percent = fields.Float(string="IRPF deducible por defecto (%)", default=100.0)
+    default_vat_deductible_percent = fields.Float(string="IVA deducible por defecto (%)", default=100.0)
+    legal_reference = fields.Char(string="Referencia legal")
+    official_source_url = fields.Char(string="URL fuente oficial")
     legal_source_ids = fields.Many2many("autonomo.legal.source", string="Fuentes oficiales")
-    active = fields.Boolean(default=True)
-    notes = fields.Text()
+    active = fields.Boolean(string="Activo", default=True)
+    notes = fields.Text(string="Notas")
 
     _code_company_uniq = models.Constraint(
         "UNIQUE(company_id, code)",

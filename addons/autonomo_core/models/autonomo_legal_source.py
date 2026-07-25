@@ -6,8 +6,8 @@ class AutonomoLegalSource(models.Model):
     _description = "Fuente oficial autonomo"
     _order = "authority, code"
 
-    name = fields.Char(required=True)
-    code = fields.Char(required=True, index=True)
+    name = fields.Char(string="Nombre", required=True)
+    code = fields.Char(string="Codigo", required=True, index=True)
     authority = fields.Selection(
         [
             ("boe", "BOE"),
@@ -17,6 +17,7 @@ class AutonomoLegalSource(models.Model):
             ("sepe", "SEPE"),
             ("other", "Otro organismo oficial"),
         ],
+        string="Organismo",
         required=True,
         default="boe",
     )
@@ -29,17 +30,19 @@ class AutonomoLegalSource(models.Model):
             ("guide", "Guia oficial"),
             ("api", "API oficial"),
         ],
+        string="Tipo de fuente",
         required=True,
         default="law",
     )
-    official_url = fields.Char(required=True)
-    document_reference = fields.Char()
-    publication_date = fields.Date()
-    valid_from = fields.Date()
-    valid_to = fields.Date()
-    verified_at = fields.Datetime(default=fields.Datetime.now)
+    official_url = fields.Char(string="URL oficial", required=True)
+    document_reference = fields.Char(string="Referencia del documento")
+    publication_date = fields.Date(string="Fecha de publicacion")
+    valid_from = fields.Date(string="Vigente desde")
+    valid_to = fields.Date(string="Vigente hasta")
+    verified_at = fields.Datetime(string="Fecha de verificacion", default=fields.Datetime.now)
     legal_disclaimer = fields.Text(
+        string="Aviso legal",
         default="Fuente oficial consultada con fines informativos. Requiere revision humana antes de presentar tramites o declaraciones."
     )
-    active = fields.Boolean(default=True)
-    notes = fields.Text()
+    active = fields.Boolean(string="Activo", default=True)
+    notes = fields.Text(string="Notas")

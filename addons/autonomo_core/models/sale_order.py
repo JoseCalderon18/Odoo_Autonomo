@@ -5,16 +5,17 @@ from odoo.exceptions import ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    activity_id = fields.Many2one("autonomo.activity", check_company=True)
-    work_site_partner_id = fields.Many2one("res.partner", check_company=True)
-    scope_description = fields.Text()
-    estimated_cost = fields.Monetary(currency_field="currency_id")
-    estimated_margin = fields.Monetary(compute="_compute_estimated_margin", store=True, currency_field="currency_id")
-    estimated_margin_percent = fields.Float(compute="_compute_estimated_margin", store=True)
-    requires_advance = fields.Boolean()
-    advance_percent = fields.Float()
+    activity_id = fields.Many2one("autonomo.activity", string="Actividad", check_company=True)
+    work_site_partner_id = fields.Many2one("res.partner", string="Lugar de trabajo", check_company=True)
+    scope_description = fields.Text(string="Descripcion del alcance")
+    estimated_cost = fields.Monetary(string="Coste estimado", currency_field="currency_id")
+    estimated_margin = fields.Monetary(string="Margen estimado", compute="_compute_estimated_margin", store=True, currency_field="currency_id")
+    estimated_margin_percent = fields.Float(string="Margen estimado (%)", compute="_compute_estimated_margin", store=True)
+    requires_advance = fields.Boolean(string="Requiere anticipo")
+    advance_percent = fields.Float(string="Anticipo (%)")
     tax_review_state = fields.Selection(
         [("pending", "Pendiente"), ("ok", "Revisado"), ("warning", "Aviso"), ("blocked", "Bloqueado")],
+        string="Estado de revision fiscal",
         default="pending",
     )
 

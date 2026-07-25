@@ -12,10 +12,11 @@ class ResPartner(models.Model):
             ("public_body", "Administracion publica"),
             ("other", "Otro"),
         ],
+        string="Tipo de sujeto fiscal",
         default="individual",
     )
-    e_invoice_required = fields.Boolean()
-    e_invoice_channel = fields.Selection([("face", "FACe"), ("private_platform", "Plataforma privada"), ("email", "Email"), ("other", "Otro")])
-    e_invoice_endpoint = fields.Char()
-    privacy_alias = fields.Char()
-    tax_data_verified_at = fields.Datetime()
+    e_invoice_required = fields.Boolean(string="Factura electronica requerida")
+    e_invoice_channel = fields.Selection([("face", "FACe"), ("private_platform", "Plataforma privada"), ("email", "Email"), ("other", "Otro")], string="Canal factura electronica")
+    e_invoice_endpoint = fields.Char(string="Destino factura electronica")
+    privacy_alias = fields.Char(string="Alias de privacidad")
+    tax_data_verified_at = fields.Datetime(string="Datos fiscales verificados")
