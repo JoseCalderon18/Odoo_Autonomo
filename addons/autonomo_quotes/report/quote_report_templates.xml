@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_autonomo_quote_professional">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Presupuesto profesional</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
+                        <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Cliente:</strong> <span t-field="doc.partner_id.name"/></p>
+                        <p><strong>Dirección de trabajo:</strong> <span t-field="doc.work_address"/></p>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr><th>Concepto</th><th class="text-end">Cantidad</th><th class="text-end">Precio</th><th class="text-end">Subtotal</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.order_line" t-as="line">
+                                    <td><span t-field="line.name"/></td>
+                                    <td class="text-end"><span t-field="line.product_uom_qty"/></td>
+                                    <td class="text-end"><span t-field="line.price_unit"/></td>
+                                    <td class="text-end"><span t-field="line.price_subtotal"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p><strong>Total:</strong> <span t-field="doc.amount_total"/></p>
+                        <p><strong>Condiciones:</strong> <span t-field="doc.special_conditions"/></p>
+                        <p class="text-muted">Documento interno informativo generado desde Odoo. La revisión fiscal o jurídica requiere validación humana cuando proceda.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_autonomo_quote_cost_sheet">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Hoja interna de costes</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>Referencia:</strong> <span t-field="doc.name"/></p>
+                        <table class="table table-sm">
+                            <tr><td>Horas de trabajo</td><td><span t-field="doc.labor_hours"/></td></tr>
+                            <tr><td>Precio hora</td><td><span t-field="doc.labor_hour_price"/></td></tr>
+                            <tr><td>Importe mano de obra</td><td><span t-field="doc.labor_amount"/></td></tr>
+                            <tr><td>Km ida</td><td><span t-field="doc.distance_one_way_km"/></td></tr>
+                            <tr><td>Km totales</td><td><span t-field="doc.distance_total_km"/></td></tr>
+                            <tr><td>Km facturables</td><td><span t-field="doc.billable_distance_km"/></td></tr>
+                            <tr><td>Desplazamiento</td><td><span t-field="doc.travel_amount"/></td></tr>
+                            <tr><td>Materiales</td><td><span t-field="doc.estimated_material_cost"/></td></tr>
+                            <tr><td>Herramientas</td><td><span t-field="doc.estimated_tool_cost"/></td></tr>
+                            <tr><td>Subcontratas</td><td><span t-field="doc.estimated_subcontract_cost"/></td></tr>
+                            <tr><td>Coste total estimado</td><td><span t-field="doc.estimated_total_cost"/></td></tr>
+                            <tr><td>Beneficio estimado</td><td><span t-field="doc.estimated_profit"/></td></tr>
+                            <tr><td>Margen</td><td><span t-field="doc.quote_estimated_margin_percent"/>%</td></tr>
+                        </table>
+                        <p class="text-muted">Uso interno. No enviar al cliente salvo decisión expresa.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_autonomo_quote_measurements">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Informe de mediciones</h2>
+                        <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Cliente:</strong> <span t-field="doc.partner_id.name"/></p>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr><th>Medición</th><th>Área</th><th>Largo</th><th>Ancho</th><th>Alto</th><th>Cantidad</th><th>UdM</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.measurement_ids" t-as="measurement">
+                                    <td><span t-field="measurement.name"/></td>
+                                    <td><span t-field="measurement.area"/></td>
+                                    <td><span t-field="measurement.length"/></td>
+                                    <td><span t-field="measurement.width"/></td>
+                                    <td><span t-field="measurement.height"/></td>
+                                    <td><span t-field="measurement.quantity"/></td>
+                                    <td><span t-field="measurement.uom_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_autonomo_quote_versions">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Historial de versiones</h2>
+                        <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Versión actual:</strong> <span t-field="doc.quote_version"/></p>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr><th>Versión</th><th>Estado</th><th>Total</th><th>Coste</th><th>Beneficio</th><th>Fecha</th><th>Hash</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.quote_version_ids" t-as="version">
+                                    <td><span t-field="version.version_number"/></td>
+                                    <td><span t-field="version.state_snapshot"/></td>
+                                    <td><span t-field="version.amount_total"/></td>
+                                    <td><span t-field="version.estimated_total_cost"/></td>
+                                    <td><span t-field="version.estimated_profit"/></td>
+                                    <td><span t-field="version.snapshot_date"/></td>
+                                    <td><span t-field="version.snapshot_hash"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_autonomo_quotes" model="ir.ui.view">
+        <field name="name">sale.order.form.autonomo.quotes</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_apply_quote_template" type="object" string="Aplicar plantilla" class="btn-secondary"/>
+                <button name="action_create_quote_version" type="object" string="Guardar versión" class="btn-secondary"/>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Costes y kilometraje">
+                    <group>
+                        <group string="Plantilla y trabajo">
+                            <field name="quote_template_id"/>
+                            <field name="quote_type"/>
+                            <field name="work_address"/>
+                            <field name="labor_hours"/>
+                            <field name="labor_hour_price"/>
+                            <field name="labor_amount"/>
+                        </group>
+                        <group string="Desplazamiento">
+                            <field name="travel_rate_id"/>
+                            <field name="distance_one_way_km"/>
+                            <field name="distance_total_km"/>
+                            <field name="free_distance_km"/>
+                            <field name="billable_distance_km"/>
+                            <field name="travel_amount"/>
+                        </group>
+                    </group>
+                    <group string="Importes de viaje">
+                        <field name="fuel_amount"/>
+                        <field name="parking_amount"/>
+                        <field name="toll_amount"/>
+                        <field name="diet_amount"/>
+                        <field name="overnight_amount"/>
+                        <field name="other_travel_amount"/>
+                    </group>
+                    <group string="Costes y margen">
+                        <field name="estimated_material_cost"/>
+                        <field name="estimated_labor_cost"/>
+                        <field name="estimated_tool_cost"/>
+                        <field name="estimated_subcontract_cost"/>
+                        <field name="estimated_total_cost"/>
+                        <field name="estimated_profit"/>
+                        <field name="quote_estimated_margin_percent"/>
+                        <field name="advance_amount"/>
+                    </group>
+                </page>
+                <page string="Mediciones">
+                    <field name="measurement_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="area"/>
+                            <field name="length"/>
+                            <field name="width"/>
+                            <field name="height"/>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Recargos y versiones">
+                    <group>
+                        <field name="quote_version"/>
+                        <field name="manual_travel_override"/>
+                        <field name="manual_travel_reason"/>
+                    </group>
+                    <field name="surcharge_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="surcharge_type"/>
+                            <field name="percent"/>
+                            <field name="amount"/>
+                        </list>
+                    </field>
+                    <field name="quote_version_ids" readonly="1">
+                        <list>
+                            <field name="version_number"/>
+                            <field name="state_snapshot"/>
+                            <field name="amount_total"/>
+                            <field name="estimated_total_cost"/>
+                            <field name="estimated_profit"/>
+                            <field name="snapshot_date"/>
+                            <field name="snapshot_hash"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Condiciones internas">
+                    <field name="special_conditions"/>
+                    <field name="quote_internal_notes"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

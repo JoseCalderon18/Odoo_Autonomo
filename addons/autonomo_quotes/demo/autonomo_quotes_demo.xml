@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_labor_demo" model="product.product">
+        <field name="name">Hora de trabajo montaje</field>
+        <field name="default_code">AUT-HORA</field>
+        <field name="type">service</field>
+        <field name="list_price">35</field>
+    </record>
+    <record id="product_material_demo" model="product.product">
+        <field name="name">Material demo presupuesto</field>
+        <field name="default_code">AUT-MAT</field>
+        <field name="type">consu</field>
+        <field name="list_price">80</field>
+    </record>
+
+    <record id="travel_rate_madrid" model="autonomo.travel.rate">
+        <field name="name">Madrid radio 20 km</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="origin_city">Madrid</field>
+        <field name="free_radius_km">20</field>
+        <field name="price_per_km">0.45</field>
+        <field name="minimum_charge">18</field>
+        <field name="round_trip">1</field>
+        <field name="include_fuel">0</field>
+    </record>
+
+    <record id="cost_labor" model="autonomo.cost.item">
+        <field name="name">Mano de obra montaje</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="cost_type">labor</field>
+        <field name="product_id" ref="product_labor_demo"/>
+        <field name="internal_cost">18</field>
+        <field name="sale_price">35</field>
+        <field name="charge_method">hour</field>
+    </record>
+    <record id="cost_material" model="autonomo.cost.item">
+        <field name="name">Materiales montaje</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="cost_type">material</field>
+        <field name="product_id" ref="product_material_demo"/>
+        <field name="internal_cost">50</field>
+        <field name="sale_price">80</field>
+    </record>
+    <record id="cost_parking" model="autonomo.cost.item">
+        <field name="name">Aparcamiento</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="cost_type">parking</field>
+        <field name="internal_cost">8</field>
+        <field name="sale_price">8</field>
+        <field name="charge_method">fixed</field>
+    </record>
+    <record id="cost_tool_rental" model="autonomo.cost.item">
+        <field name="name">Herramienta alquilada</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="cost_type">rental</field>
+        <field name="internal_cost">30</field>
+        <field name="sale_price">45</field>
+        <field name="charge_method">day</field>
+    </record>
+
+    <record id="template_cocina" model="autonomo.quote.template">
+        <field name="name">Cocina</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="quote_type">installation</field>
+        <field name="activity_id" ref="autonomo_core.activity_montaje_cocinas"/>
+        <field name="line_ids" eval="[(0,0,{'cost_item_id': ref('cost_labor'), 'product_id': ref('product_labor_demo'), 'name': 'Mano de obra cocina', 'quantity': 8, 'price_unit': 35, 'internal_cost': 18}), (0,0,{'cost_item_id': ref('cost_material'), 'product_id': ref('product_material_demo'), 'name': 'Materiales instalacion', 'quantity': 1, 'price_unit': 80, 'internal_cost': 50})]"/>
+    </record>
+    <record id="template_armario" model="autonomo.quote.template">
+        <field name="name">Armario</field><field name="company_id" ref="base.main_company"/><field name="quote_type">installation</field><field name="activity_id" ref="autonomo_core.activity_montaje_muebles"/>
+    </record>
+    <record id="template_puerta" model="autonomo.quote.template">
+        <field name="name">Puerta</field><field name="company_id" ref="base.main_company"/><field name="quote_type">installation</field><field name="activity_id" ref="autonomo_core.activity_carpinteria_madera"/>
+    </record>
+    <record id="template_mobiliario_clinico" model="autonomo.quote.template">
+        <field name="name">Mobiliario clinico</field><field name="company_id" ref="base.main_company"/><field name="quote_type">custom</field><field name="activity_id" ref="autonomo_core.activity_mobiliario_clinico"/>
+    </record>
+    <record id="template_bano" model="autonomo.quote.template">
+        <field name="name">Bano</field><field name="company_id" ref="base.main_company"/><field name="quote_type">custom</field><field name="activity_id" ref="autonomo_core.activity_reforma_integral"/>
+    </record>
+    <record id="template_electricidad" model="autonomo.quote.template">
+        <field name="name">Electricidad</field><field name="company_id" ref="base.main_company"/><field name="quote_type">installation</field><field name="activity_id" ref="autonomo_core.activity_instalaciones_electricas"/>
+    </record>
+    <record id="template_reparacion" model="autonomo.quote.template">
+        <field name="name">Reparacion</field><field name="company_id" ref="base.main_company"/><field name="quote_type">repair</field><field name="activity_id" ref="autonomo_core.activity_reparacion_mobiliario"/>
+    </record>
+    <record id="template_carpinteria" model="autonomo.quote.template">
+        <field name="name">Carpinteria</field><field name="company_id" ref="base.main_company"/><field name="quote_type">custom</field><field name="activity_id" ref="autonomo_core.activity_carpinteria_madera"/>
+    </record>
+    <record id="template_mesa_resina" model="autonomo.quote.template">
+        <field name="name">Mesa de resina</field><field name="company_id" ref="base.main_company"/><field name="quote_type">custom</field><field name="activity_id" ref="autonomo_core.activity_mesas_resina"/>
+    </record>
+    <record id="template_reforma_integral" model="autonomo.quote.template">
+        <field name="name">Reforma integral</field><field name="company_id" ref="base.main_company"/><field name="quote_type">custom</field><field name="activity_id" ref="autonomo_core.activity_reforma_integral"/>
+    </record>
+</odoo>

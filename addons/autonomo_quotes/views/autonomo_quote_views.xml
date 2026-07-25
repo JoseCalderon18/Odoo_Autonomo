@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_travel_rate_list" model="ir.ui.view">
+        <field name="name">autonomo.travel.rate.list</field>
+        <field name="model">autonomo.travel.rate</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="origin_city"/>
+                <field name="free_radius_km"/>
+                <field name="price_per_km"/>
+                <field name="minimum_charge"/>
+                <field name="round_trip"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_travel_rate_form" model="ir.ui.view">
+        <field name="name">autonomo.travel.rate.form</field>
+        <field name="model">autonomo.travel.rate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="origin_city"/>
+                            <field name="origin_address"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="free_radius_km"/>
+                            <field name="price_per_km"/>
+                            <field name="minimum_charge"/>
+                            <field name="round_trip"/>
+                        </group>
+                    </group>
+                    <group string="Incluido">
+                        <field name="include_fuel"/>
+                        <field name="include_vehicle_costs"/>
+                        <field name="include_tolls"/>
+                        <field name="include_parking"/>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_autonomo_travel_rate" model="ir.actions.act_window">
+        <field name="name">Tarifas de desplazamiento</field>
+        <field name="res_model">autonomo.travel.rate</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_autonomo_cost_item_list" model="ir.ui.view">
+        <field name="name">autonomo.cost.item.list</field>
+        <field name="model">autonomo.cost.item</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="cost_type"/>
+                <field name="internal_cost"/>
+                <field name="sale_price"/>
+                <field name="charge_method"/>
+                <field name="default_margin_percent"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_cost_item_form" model="ir.ui.view">
+        <field name="name">autonomo.cost.item.form</field>
+        <field name="model">autonomo.cost.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="cost_type"/>
+                            <field name="product_id"/>
+                            <field name="uom_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="internal_cost"/>
+                            <field name="sale_price"/>
+                            <field name="charge_method"/>
+                            <field name="default_margin_percent"/>
+                            <field name="reusable"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_autonomo_cost_item" model="ir.actions.act_window">
+        <field name="name">Conceptos de coste</field>
+        <field name="res_model">autonomo.cost.item</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_autonomo_quote_template_list" model="ir.ui.view">
+        <field name="name">autonomo.quote.template.list</field>
+        <field name="model">autonomo.quote.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="quote_type"/>
+                <field name="activity_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_quote_template_form" model="ir.ui.view">
+        <field name="name">autonomo.quote.template.form</field>
+        <field name="model">autonomo.quote.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                        <field name="quote_type"/>
+                        <field name="activity_id"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="line_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="cost_item_id"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="internal_cost"/>
+                        </list>
+                    </field>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_autonomo_quote_template" model="ir.actions.act_window">
+        <field name="name">Plantillas de presupuesto</field>
+        <field name="res_model">autonomo.quote.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

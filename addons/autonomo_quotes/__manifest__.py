@@ -1,0 +1,22 @@
+{
+    "name": "Autonomo Quotes",
+    "summary": "Presupuestos avanzados para autonomos",
+    "description": "Amplia presupuestos de Odoo con horas, materiales, kilometraje, costes, margenes, mediciones, recargos, plantillas y versiones.",
+    "version": "19.0.1.0.0",
+    "category": "Sales/Sales",
+    "author": "Jose",
+    "license": "LGPL-3",
+    "depends": ["autonomo_core", "sale_management"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/autonomo_quote_views.xml",
+        "views/sale_order_views.xml",
+        "views/autonomo_quote_menus.xml",
+        "report/quote_report_templates.xml",
+        "report/autonomo_quotes_reports.xml",
+        "demo/autonomo_quotes_demo.xml",
+    ],
+    "demo": [],
+    "installable": True,
+    "application": False,
+}
