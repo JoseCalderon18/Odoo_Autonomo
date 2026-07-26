@@ -8,23 +8,46 @@
                         <h2>Presupuesto profesional</h2>
                         <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
                         <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Cliente:</strong> <span t-field="doc.partner_id.name"/></p>
-                        <p><strong>Direccion de trabajo:</strong> <span t-field="doc.work_address"/></p>
+                        <p t-if="doc.work_address"><strong>Direccion de trabajo:</strong> <span t-field="doc.work_address"/></p>
+
                         <h4>Trabajo y desplazamiento</h4>
-                        <table class="table table-sm">
-                            <tr><td>Horas de trabajo</td><td><span t-field="doc.labor_hours"/></td></tr>
-                            <tr><td>Precio hora</td><td><span t-field="doc.labor_hour_price"/></td></tr>
-                            <tr><td>Mano de obra</td><td><span t-field="doc.labor_amount"/></td></tr>
-                            <tr><td>Km ida</td><td><span t-field="doc.distance_one_way_km"/></td></tr>
-                            <tr><td>Km totales</td><td><span t-field="doc.distance_total_km"/></td></tr>
-                            <tr><td>Km gratuitos</td><td><span t-field="doc.free_distance_km"/></td></tr>
-                            <tr><td>Km facturables</td><td><span t-field="doc.billable_distance_km"/></td></tr>
-                            <tr><td>Desplazamiento</td><td><span t-field="doc.travel_amount"/></td></tr>
-                            <tr><td>Combustible</td><td><span t-field="doc.fuel_amount"/></td></tr>
-                            <tr><td>Aparcamiento</td><td><span t-field="doc.parking_amount"/></td></tr>
-                            <tr><td>Peajes</td><td><span t-field="doc.toll_amount"/></td></tr>
-                            <tr><td>Dietas</td><td><span t-field="doc.diet_amount"/></td></tr>
-                            <tr><td>Alojamiento</td><td><span t-field="doc.overnight_amount"/></td></tr>
+                        <div class="row">
+                            <div class="col-6">
+                                <table class="table table-sm">
+                                    <thead><tr><th colspan="2">Mano de obra</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Horas</td><td class="text-end"><span t-field="doc.labor_hours"/></td></tr>
+                                        <tr><td>Precio por hora</td><td class="text-end"><span t-field="doc.labor_hour_price"/></td></tr>
+                                        <tr><td>Importe</td><td class="text-end"><span t-field="doc.labor_amount"/></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-sm">
+                                    <thead><tr><th colspan="2">Kilometraje</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Km ida</td><td class="text-end"><span t-field="doc.distance_one_way_km"/></td></tr>
+                                        <tr><td>Km totales</td><td class="text-end"><span t-field="doc.distance_total_km"/></td></tr>
+                                        <tr><td>Km gratuitos</td><td class="text-end"><span t-field="doc.free_distance_km"/></td></tr>
+                                        <tr><td>Km facturables</td><td class="text-end"><span t-field="doc.billable_distance_km"/></td></tr>
+                                        <tr><td>Desplazamiento</td><td class="text-end"><span t-field="doc.travel_amount"/></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm" t-if="doc.fuel_amount or doc.parking_amount or doc.toll_amount or doc.diet_amount or doc.overnight_amount or doc.other_travel_amount">
+                            <thead><tr><th>Otros importes de viaje</th><th class="text-end">Importe</th></tr></thead>
+                            <tbody>
+                                <tr t-if="doc.fuel_amount"><td>Combustible</td><td class="text-end"><span t-field="doc.fuel_amount"/></td></tr>
+                                <tr t-if="doc.parking_amount"><td>Aparcamiento</td><td class="text-end"><span t-field="doc.parking_amount"/></td></tr>
+                                <tr t-if="doc.toll_amount"><td>Peajes</td><td class="text-end"><span t-field="doc.toll_amount"/></td></tr>
+                                <tr t-if="doc.diet_amount"><td>Dietas</td><td class="text-end"><span t-field="doc.diet_amount"/></td></tr>
+                                <tr t-if="doc.overnight_amount"><td>Alojamiento</td><td class="text-end"><span t-field="doc.overnight_amount"/></td></tr>
+                                <tr t-if="doc.other_travel_amount"><td>Otros desplazamientos</td><td class="text-end"><span t-field="doc.other_travel_amount"/></td></tr>
+                            </tbody>
                         </table>
+
                         <h4>Lineas del presupuesto</h4>
                         <table class="table table-sm">
                             <thead>
@@ -40,8 +63,8 @@
                             </tbody>
                         </table>
                         <p><strong>Total:</strong> <span t-field="doc.amount_total"/></p>
-                        <p><strong>Condiciones:</strong> <span t-field="doc.special_conditions"/></p>
-                        <p class="text-muted">Documento interno informativo generado desde Odoo. La revisión fiscal o jurídica requiere validación humana cuando proceda.</p>
+                        <p t-if="doc.special_conditions"><strong>Condiciones:</strong> <span t-field="doc.special_conditions"/></p>
+                        <p class="text-muted">Documento informativo generado desde Odoo. La revision fiscal o juridica requiere validacion humana cuando proceda.</p>
                     </div>
                 </t>
             </t>
@@ -56,21 +79,22 @@
                         <h2>Hoja interna de costes</h2>
                         <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>Referencia:</strong> <span t-field="doc.name"/></p>
                         <table class="table table-sm">
-                            <tr><td>Horas de trabajo</td><td><span t-field="doc.labor_hours"/></td></tr>
-                            <tr><td>Precio hora</td><td><span t-field="doc.labor_hour_price"/></td></tr>
-                            <tr><td>Importe mano de obra</td><td><span t-field="doc.labor_amount"/></td></tr>
-                            <tr><td>Km ida</td><td><span t-field="doc.distance_one_way_km"/></td></tr>
-                            <tr><td>Km totales</td><td><span t-field="doc.distance_total_km"/></td></tr>
-                            <tr><td>Km facturables</td><td><span t-field="doc.billable_distance_km"/></td></tr>
-                            <tr><td>Desplazamiento</td><td><span t-field="doc.travel_amount"/></td></tr>
-                            <tr><td>Materiales</td><td><span t-field="doc.estimated_material_cost"/></td></tr>
-                            <tr><td>Herramientas</td><td><span t-field="doc.estimated_tool_cost"/></td></tr>
-                            <tr><td>Subcontratas</td><td><span t-field="doc.estimated_subcontract_cost"/></td></tr>
-                            <tr><td>Coste total estimado</td><td><span t-field="doc.estimated_total_cost"/></td></tr>
-                            <tr><td>Beneficio estimado</td><td><span t-field="doc.estimated_profit"/></td></tr>
-                            <tr><td>Margen</td><td><span t-field="doc.quote_estimated_margin_percent"/>%</td></tr>
+                            <thead><tr><th>Concepto interno</th><th class="text-end">Importe</th></tr></thead>
+                            <tbody>
+                                <tr><td>Horas de trabajo</td><td class="text-end"><span t-field="doc.labor_hours"/></td></tr>
+                                <tr><td>Precio hora</td><td class="text-end"><span t-field="doc.labor_hour_price"/></td></tr>
+                                <tr><td>Importe mano de obra</td><td class="text-end"><span t-field="doc.labor_amount"/></td></tr>
+                                <tr><td>Desplazamiento</td><td class="text-end"><span t-field="doc.travel_amount"/></td></tr>
+                                <tr><td>Materiales</td><td class="text-end"><span t-field="doc.estimated_material_cost"/></td></tr>
+                                <tr><td>Coste mano de obra</td><td class="text-end"><span t-field="doc.estimated_labor_cost"/></td></tr>
+                                <tr><td>Herramientas</td><td class="text-end"><span t-field="doc.estimated_tool_cost"/></td></tr>
+                                <tr><td>Subcontratas</td><td class="text-end"><span t-field="doc.estimated_subcontract_cost"/></td></tr>
+                                <tr><td>Coste total estimado</td><td class="text-end"><span t-field="doc.estimated_total_cost"/></td></tr>
+                                <tr><td>Beneficio estimado</td><td class="text-end"><span t-field="doc.estimated_profit"/></td></tr>
+                                <tr><td>Margen</td><td class="text-end"><span t-field="doc.quote_estimated_margin_percent"/>%</td></tr>
+                            </tbody>
                         </table>
-                        <p class="text-muted">Uso interno. No enviar al cliente salvo decisión expresa.</p>
+                        <p class="text-muted">Uso interno. No enviar al cliente salvo decision expresa.</p>
                     </div>
                 </t>
             </t>
@@ -86,7 +110,7 @@
                         <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Cliente:</strong> <span t-field="doc.partner_id.name"/></p>
                         <table class="table table-sm">
                             <thead>
-                                <tr><th>Medición</th><th>Área</th><th>Largo</th><th>Ancho</th><th>Alto</th><th>Cantidad</th><th>UdM</th></tr>
+                                <tr><th>Medicion</th><th>Area</th><th>Largo</th><th>Ancho</th><th>Alto</th><th>Cantidad</th><th>UdM</th></tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="doc.measurement_ids" t-as="measurement">
@@ -112,10 +136,10 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                         <h2>Historial de versiones</h2>
-                        <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Versión actual:</strong> <span t-field="doc.quote_version"/></p>
+                        <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Version actual:</strong> <span t-field="doc.quote_version"/></p>
                         <table class="table table-sm">
                             <thead>
-                                <tr><th>Versión</th><th>Estado</th><th>Total</th><th>Coste</th><th>Beneficio</th><th>Fecha</th><th>Hash</th></tr>
+                                <tr><th>Version</th><th>Estado</th><th>Total</th><th>Coste</th><th>Beneficio</th><th>Fecha</th><th>Hash</th></tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="doc.quote_version_ids" t-as="version">

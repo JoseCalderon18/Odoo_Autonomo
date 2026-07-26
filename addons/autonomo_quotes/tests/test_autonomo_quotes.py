@@ -34,3 +34,7 @@ class TestAutonomoQuotes(TransactionCase):
         pdf_content, content_type = report._render_qweb_pdf(report.report_name, [order.id])
         self.assertIn(content_type, ("pdf", "html"))
         self.assertTrue(pdf_content)
+        standard_report = self.env.ref("sale.action_report_saleorder")
+        standard_content, standard_type = standard_report._render_qweb_pdf(standard_report.report_name, [order.id])
+        self.assertIn(standard_type, ("pdf", "html"))
+        self.assertTrue(standard_content)

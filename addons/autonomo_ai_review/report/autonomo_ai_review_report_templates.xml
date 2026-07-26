@@ -5,34 +5,65 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <h2>Informe de revisión IA</h2>
+                        <h2>Informe de revision IA</h2>
                         <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>Tipo:</strong> <span t-field="doc.review_type"/></p>
-                        <p><strong>Riesgo:</strong> <span t-field="doc.risk_level"/> | <strong>Estado:</strong> <span t-field="doc.state"/></p>
+
+                        <h4>Estado de revision</h4>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Riesgo</td><td><span t-field="doc.risk_level"/></td></tr>
+                                <tr><td>Estado</td><td><span t-field="doc.state"/></td></tr>
+                                <tr><td>Requiere revision humana</td><td><span t-field="doc.requires_human_review"/></td></tr>
+                                <tr><td>Proveedor</td><td><span t-field="doc.provider"/></td></tr>
+                                <tr><td>Modelo IA</td><td><span t-field="doc.model_name"/></td></tr>
+                            </tbody>
+                        </table>
+
                         <h4>Pregunta</h4>
                         <p><span t-field="doc.question"/></p>
                         <h4>Respuesta</h4>
                         <p><span t-field="doc.answer"/></p>
+
                         <h4>Fuentes</h4>
-                        <ul>
-                            <li t-foreach="doc.citation_ids" t-as="citation">
-                                <span t-field="citation.title"/> - <span t-field="citation.official_url"/> - verificado <span t-field="citation.verified_at"/>
-                            </li>
-                        </ul>
-                        <p class="text-muted">Informe interno. No sustituye asesoramiento fiscal, jurídico ni presentación oficial.</p>
+                        <table class="table table-sm">
+                            <thead><tr><th>Titulo</th><th>Organismo</th><th>Version</th><th>Verificado</th><th>URL</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="doc.citation_ids" t-as="citation">
+                                    <td><span t-field="citation.title"/></td>
+                                    <td><span t-field="citation.authority"/></td>
+                                    <td><span t-field="citation.source_version"/></td>
+                                    <td><span t-field="citation.verified_at"/></td>
+                                    <td><span t-field="citation.official_url"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-muted">Informe interno. No sustituye asesoramiento fiscal, juridico ni presentacion oficial.</p>
                     </div>
                 </t>
             </t>
         </t>
     </template>
+
     <template id="report_autonomo_compliance_issue">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
                         <h2>Informe de incidencia</h2>
-                        <p><strong>Incidencia:</strong> <span t-field="doc.name"/> | <strong>Riesgo:</strong> <span t-field="doc.risk_level"/></p>
-                        <p><strong>Tipo:</strong> <span t-field="doc.issue_type"/> | <strong>Estado:</strong> <span t-field="doc.state"/></p>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Incidencia</td><td><span t-field="doc.name"/></td></tr>
+                                <tr><td>Tipo</td><td><span t-field="doc.issue_type"/></td></tr>
+                                <tr><td>Riesgo</td><td><span t-field="doc.risk_level"/></td></tr>
+                                <tr><td>Prioridad</td><td><span t-field="doc.priority"/></td></tr>
+                                <tr><td>Estado</td><td><span t-field="doc.state"/></td></tr>
+                                <tr><td>Asignado a</td><td><span t-field="doc.assigned_user_id.name"/></td></tr>
+                            </tbody>
+                        </table>
+                        <h4>Descripcion</h4>
                         <p><span t-field="doc.description"/></p>
+                        <h4>Resolucion</h4>
+                        <p><span t-field="doc.resolution_notes"/></p>
                     </div>
                 </t>
             </t>
