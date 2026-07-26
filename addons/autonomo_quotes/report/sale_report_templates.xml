@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_autonomo_quotes" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']" position="after">
+            <div class="row mt-2 mb-4" t-if="doc.labor_hours or doc.distance_one_way_km or doc.travel_amount or doc.fuel_amount or doc.parking_amount or doc.toll_amount or doc.diet_amount or doc.overnight_amount or doc.work_address">
+                <div class="col-12">
+                    <h4>Detalle del trabajo y desplazamiento</h4>
+                    <table class="table table-sm table-borderless">
+                        <tbody>
+                            <tr t-if="doc.work_address">
+                                <td><strong>Direccion de trabajo</strong></td>
+                                <td><span t-field="doc.work_address"/></td>
+                            </tr>
+                            <tr t-if="doc.labor_hours or doc.labor_hour_price or doc.labor_amount">
+                                <td><strong>Mano de obra</strong></td>
+                                <td>
+                                    <span t-field="doc.labor_hours"/> horas
+                                    <t t-if="doc.labor_hour_price"> x <span t-field="doc.labor_hour_price"/></t>
+                                    <t t-if="doc.labor_amount"> = <span t-field="doc.labor_amount"/></t>
+                                </td>
+                            </tr>
+                            <tr t-if="doc.distance_one_way_km or doc.distance_total_km or doc.billable_distance_km">
+                                <td><strong>Kilometraje</strong></td>
+                                <td>
+                                    Ida: <span t-field="doc.distance_one_way_km"/> km,
+                                    total: <span t-field="doc.distance_total_km"/> km,
+                                    gratuitos: <span t-field="doc.free_distance_km"/> km,
+                                    facturables: <span t-field="doc.billable_distance_km"/> km
+                                </td>
+                            </tr>
+                            <tr t-if="doc.travel_amount">
+                                <td><strong>Desplazamiento</strong></td>
+                                <td><span t-field="doc.travel_amount"/></td>
+                            </tr>
+                            <tr t-if="doc.fuel_amount or doc.parking_amount or doc.toll_amount or doc.diet_amount or doc.overnight_amount or doc.other_travel_amount">
+                                <td><strong>Otros importes</strong></td>
+                                <td>
+                                    <t t-if="doc.fuel_amount">Combustible: <span t-field="doc.fuel_amount"/> </t>
+                                    <t t-if="doc.parking_amount">Aparcamiento: <span t-field="doc.parking_amount"/> </t>
+                                    <t t-if="doc.toll_amount">Peajes: <span t-field="doc.toll_amount"/> </t>
+                                    <t t-if="doc.diet_amount">Dietas: <span t-field="doc.diet_amount"/> </t>
+                                    <t t-if="doc.overnight_amount">Alojamiento: <span t-field="doc.overnight_amount"/> </t>
+                                    <t t-if="doc.other_travel_amount">Otros: <span t-field="doc.other_travel_amount"/></t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-muted" t-if="doc.travel_amount or doc.labor_amount">
+                        Los importes de este detalle forman parte de la informacion del presupuesto. El total facturable es el indicado en las lineas y totales del documento.
+                    </p>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

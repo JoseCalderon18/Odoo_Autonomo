@@ -12,6 +12,7 @@
         "views/autonomo_quote_views.xml",
         "views/sale_order_views.xml",
         "views/autonomo_quote_menus.xml",
+        "report/sale_report_templates.xml",
         "report/quote_report_templates.xml",
         "report/autonomo_quotes_reports.xml",
         "demo/autonomo_quotes_demo.xml",
