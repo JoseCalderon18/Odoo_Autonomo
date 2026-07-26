@@ -1,3 +1,4 @@
+from odoo import fields
 from odoo.tests.common import TransactionCase, tagged
 
 
@@ -48,3 +49,39 @@ class TestAutonomoQuotes(TransactionCase):
         standard_content, standard_type = standard_report._render_qweb_pdf(standard_report.report_name, [order.id])
         self.assertIn(standard_type, ("pdf", "html"))
         self.assertTrue(standard_content)
+
+    def test_material_purchase_link(self):
+        partner = self.env["res.partner"].create({"name": "Proveedor test quotes"})
+        customer = self.env["res.partner"].create({"name": "Cliente compra material"})
+        uom = self.env.ref("uom.product_uom_unit")
+        product = self.env["product.product"].create({
+            "name": "Tablero compra test",
+            "type": "consu",
+            "uom_id": uom.id,
+            "list_price": 35,
+            "standard_price": 20,
+        })
+        order = self.env["sale.order"].create({"partner_id": customer.id})
+        material = self.env["autonomo.quote.material.line"].create({
+            "sale_order_id": order.id,
+            "product_id": product.id,
+            "name": "Tablero previsto",
+            "quantity": 1,
+            "uom_id": uom.id,
+            "planned_unit_price": 35,
+        })
+        purchase = self.env["purchase.order"].create({
+            "partner_id": partner.id,
+            "autonomo_sale_order_id": order.id,
+            "order_line": [(0, 0, {
+                "product_id": product.id,
+                "name": "Tablero comprado",
+                "product_qty": 1,
+                "product_uom_id": uom.id,
+                "price_unit": 20,
+                "date_planned": fields.Datetime.now(),
+                "autonomo_quote_material_line_id": material.id,
+            })],
+        })
+        self.assertEqual(material.purchase_line_id, purchase.order_line[:1])
+        self.assertEqual(purchase.order_line[:1].autonomo_sale_order_id, order)

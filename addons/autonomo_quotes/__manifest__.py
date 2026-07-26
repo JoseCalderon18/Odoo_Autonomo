@@ -6,11 +6,12 @@
     "category": "Sales/Sales",
     "author": "Jose",
     "license": "LGPL-3",
-    "depends": ["autonomo_core", "sale_management"],
+    "depends": ["autonomo_core", "sale_management", "purchase"],
     "data": [
         "security/ir.model.access.csv",
         "views/autonomo_quote_views.xml",
         "views/sale_order_views.xml",
+        "views/purchase_order_views.xml",
         "views/autonomo_quote_menus.xml",
         "report/sale_report_templates.xml",
         "report/quote_report_templates.xml",

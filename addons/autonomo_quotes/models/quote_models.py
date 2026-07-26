@@ -157,6 +157,25 @@ class AutonomoQuoteMaterialLine(models.Model):
             if line.quantity < 0 or line.planned_unit_price < 0 or line.length < 0 or line.width < 0 or line.thickness < 0:
                 raise ValidationError("Las cantidades, precios y medidas no pueden ser negativos.")
 
+    def _sync_purchase_line_link(self):
+        if self.env.context.get("skip_autonomo_material_sync"):
+            return
+        for line in self.filtered("purchase_line_id"):
+            if line.purchase_line_id.autonomo_quote_material_line_id != line:
+                line.purchase_line_id.with_context(skip_autonomo_material_sync=True).autonomo_quote_material_line_id = line
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records._sync_purchase_line_link()
+        return records
+
+    def write(self, vals):
+        result = super().write(vals)
+        if "purchase_line_id" in vals:
+            self._sync_purchase_line_link()
+        return result
+
 
 class AutonomoQuoteTemplate(models.Model):
     _name = "autonomo.quote.template"
