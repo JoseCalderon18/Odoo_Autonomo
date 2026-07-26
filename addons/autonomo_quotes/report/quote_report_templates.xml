@@ -8,7 +8,24 @@
                         <h2>Presupuesto profesional</h2>
                         <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
                         <p><strong>Referencia:</strong> <span t-field="doc.name"/> | <strong>Cliente:</strong> <span t-field="doc.partner_id.name"/></p>
-                        <p><strong>Dirección de trabajo:</strong> <span t-field="doc.work_address"/></p>
+                        <p><strong>Direccion de trabajo:</strong> <span t-field="doc.work_address"/></p>
+                        <h4>Trabajo y desplazamiento</h4>
+                        <table class="table table-sm">
+                            <tr><td>Horas de trabajo</td><td><span t-field="doc.labor_hours"/></td></tr>
+                            <tr><td>Precio hora</td><td><span t-field="doc.labor_hour_price"/></td></tr>
+                            <tr><td>Mano de obra</td><td><span t-field="doc.labor_amount"/></td></tr>
+                            <tr><td>Km ida</td><td><span t-field="doc.distance_one_way_km"/></td></tr>
+                            <tr><td>Km totales</td><td><span t-field="doc.distance_total_km"/></td></tr>
+                            <tr><td>Km gratuitos</td><td><span t-field="doc.free_distance_km"/></td></tr>
+                            <tr><td>Km facturables</td><td><span t-field="doc.billable_distance_km"/></td></tr>
+                            <tr><td>Desplazamiento</td><td><span t-field="doc.travel_amount"/></td></tr>
+                            <tr><td>Combustible</td><td><span t-field="doc.fuel_amount"/></td></tr>
+                            <tr><td>Aparcamiento</td><td><span t-field="doc.parking_amount"/></td></tr>
+                            <tr><td>Peajes</td><td><span t-field="doc.toll_amount"/></td></tr>
+                            <tr><td>Dietas</td><td><span t-field="doc.diet_amount"/></td></tr>
+                            <tr><td>Alojamiento</td><td><span t-field="doc.overnight_amount"/></td></tr>
+                        </table>
+                        <h4>Lineas del presupuesto</h4>
                         <table class="table table-sm">
                             <thead>
                                 <tr><th>Concepto</th><th class="text-end">Cantidad</th><th class="text-end">Precio</th><th class="text-end">Subtotal</th></tr>
