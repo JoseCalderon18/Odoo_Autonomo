@@ -20,6 +20,7 @@ class TestAutonomoQuotes(TransactionCase):
             "distance_one_way_km": 20,
             "labor_hours": 2,
             "labor_hour_price": 30,
+            "client_material_amount": 45,
             "estimated_material_cost": 20,
             "order_line": [(0, 0, {"product_id": product.id, "product_uom_qty": 1, "price_unit": 100})],
         })

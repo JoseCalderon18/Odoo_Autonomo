@@ -8,8 +8,8 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     quote_template_id = fields.Many2one("autonomo.quote.template", string="Plantilla de presupuesto")
-    quote_type = fields.Selection([("installation", "Instalación"), ("repair", "Reparación"), ("custom", "A medida")], string="Tipo de presupuesto", default="custom")
-    work_address = fields.Char(string="Dirección de trabajo")
+    quote_type = fields.Selection([("installation", "Instalacion"), ("repair", "Reparacion"), ("custom", "A medida")], string="Tipo de presupuesto", default="custom")
+    work_address = fields.Char(string="Direccion de trabajo")
     travel_rate_id = fields.Many2one("autonomo.travel.rate", string="Tarifa de desplazamiento")
     distance_one_way_km = fields.Float(string="Distancia ida (km)")
     distance_total_km = fields.Float(string="Distancia total (km)", compute="_compute_quote_amounts", store=True)
@@ -18,6 +18,7 @@ class SaleOrder(models.Model):
     labor_hours = fields.Float(string="Horas de trabajo")
     labor_hour_price = fields.Monetary(string="Precio hora", currency_field="currency_id")
     labor_amount = fields.Monetary(string="Importe mano de obra", compute="_compute_quote_amounts", store=True, currency_field="currency_id")
+    client_material_amount = fields.Monetary(string="Materiales a mostrar al cliente", currency_field="currency_id")
     travel_amount = fields.Monetary(string="Importe desplazamiento", compute="_compute_quote_amounts", store=True, currency_field="currency_id")
     fuel_amount = fields.Monetary(string="Combustible", currency_field="currency_id")
     parking_amount = fields.Monetary(string="Aparcamiento", currency_field="currency_id")
@@ -33,7 +34,7 @@ class SaleOrder(models.Model):
     estimated_profit = fields.Monetary(string="Beneficio estimado", compute="_compute_quote_amounts", store=True, currency_field="currency_id")
     quote_estimated_margin_percent = fields.Float(string="Margen presupuesto (%)", compute="_compute_quote_amounts", store=True)
     advance_amount = fields.Monetary(string="Importe anticipo", compute="_compute_quote_amounts", store=True, currency_field="currency_id")
-    quote_version = fields.Integer(string="Versión", default=1)
+    quote_version = fields.Integer(string="Version", default=1)
     measurement_ids = fields.One2many("autonomo.work.measurement", "sale_order_id", string="Mediciones")
     surcharge_ids = fields.One2many("autonomo.quote.surcharge", "sale_order_id", string="Recargos")
     quote_version_ids = fields.One2many("autonomo.quote.version", "sale_order_id", string="Versiones")
@@ -97,7 +98,7 @@ class SaleOrder(models.Model):
     def _check_positive_quote_values(self):
         for order in self:
             if order.labor_hours < 0 or order.distance_one_way_km < 0:
-                raise ValidationError("Horas y kilómetros no pueden ser negativos.")
+                raise ValidationError("Horas y kilometros no pueden ser negativos.")
 
     def action_apply_quote_template(self):
         for order in self:

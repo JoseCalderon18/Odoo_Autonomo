@@ -5,6 +5,11 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
+                        <style>
+                            table.table th, table.table td { border: 0 !important; padding: 5px 0; }
+                            table.table td:last-child { font-weight: 700; }
+                            h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #dddddd; }
+                        </style>
                         <h2>Ficha de actividad economica</h2>
                         <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
                         <p><strong>Referencia:</strong> <span t-field="doc.code"/> | <strong>Fecha:</strong> <span t-field="doc.write_date"/></p>

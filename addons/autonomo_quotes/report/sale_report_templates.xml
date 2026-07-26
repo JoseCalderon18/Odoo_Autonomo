@@ -1,60 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_saleorder_document_autonomo_quotes" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[hasclass('page')]" position="inside">
+            <style>
+                .o_main_table th, .o_main_table td,
+                .o_has_total_table th, .o_has_total_table td {
+                    border-top: 0 !important;
+                    border-bottom: 0 !important;
+                }
+            </style>
+        </xpath>
         <xpath expr="//div[@id='informations']" position="after">
-            <div class="mt-3 mb-4" t-if="doc.labor_hours or doc.distance_one_way_km or doc.travel_amount or doc.fuel_amount or doc.parking_amount or doc.toll_amount or doc.diet_amount or doc.overnight_amount or doc.other_travel_amount or doc.work_address">
-                <h4 style="border-bottom: 1px solid #222; padding-bottom: 4px; margin-bottom: 10px;">Detalle del trabajo y desplazamiento</h4>
+            <div class="mt-4 mb-4" t-if="doc.labor_hours or doc.client_material_amount or doc.distance_one_way_km or doc.travel_amount or doc.fuel_amount or doc.parking_amount or doc.toll_amount or doc.diet_amount or doc.overnight_amount or doc.other_travel_amount or doc.work_address">
+                <style>
+                    .autonomo_pdf_block { margin-top: 22px; margin-bottom: 24px; }
+                    .autonomo_pdf_title { font-size: 19px; font-weight: 700; margin-bottom: 12px; padding-bottom: 7px; border-bottom: 1px solid #dddddd; }
+                    .autonomo_pdf_grid { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+                    .autonomo_pdf_card { background: #f7f7f7; border-radius: 6px; padding: 12px 14px; vertical-align: top; }
+                    .autonomo_pdf_label { color: #555555; font-size: 12px; }
+                    .autonomo_pdf_value { font-weight: 700; font-size: 14px; }
+                    .autonomo_pdf_line { width: 100%; border-collapse: collapse; }
+                    .autonomo_pdf_line td { border: 0 !important; padding: 4px 0; }
+                    .autonomo_pdf_line td:last-child { text-align: right; font-weight: 700; }
+                </style>
+                <div class="autonomo_pdf_block">
+                    <div class="autonomo_pdf_title">Detalle del trabajo y desplazamiento</div>
 
-                <table class="table table-sm table-borderless" style="margin-bottom: 8px;">
-                    <tbody>
+                    <table class="autonomo_pdf_grid">
                         <tr t-if="doc.work_address">
-                            <td style="width: 28%;"><strong>Direccion de trabajo</strong></td>
-                            <td><span t-field="doc.work_address"/></td>
+                            <td class="autonomo_pdf_card" colspan="2">
+                                <div class="autonomo_pdf_label">Direccion de trabajo</div>
+                                <div class="autonomo_pdf_value"><span t-field="doc.work_address"/></div>
+                            </td>
                         </tr>
-                    </tbody>
-                </table>
-
-                <div class="row">
-                    <div class="col-6" t-if="doc.labor_hours or doc.labor_hour_price or doc.labor_amount">
-                        <strong>Mano de obra</strong>
-                        <table class="table table-sm" style="margin-top: 6px;">
-                            <tbody>
-                                <tr><td>Horas</td><td class="text-end"><span t-field="doc.labor_hours"/></td></tr>
-                                <tr><td>Precio por hora</td><td class="text-end"><span t-field="doc.labor_hour_price"/></td></tr>
-                                <tr><td>Importe</td><td class="text-end"><span t-field="doc.labor_amount"/></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-6" t-if="doc.distance_one_way_km or doc.distance_total_km or doc.billable_distance_km or doc.travel_amount">
-                        <strong>Kilometraje</strong>
-                        <table class="table table-sm" style="margin-top: 6px;">
-                            <tbody>
-                                <tr><td>Km ida</td><td class="text-end"><span t-field="doc.distance_one_way_km"/></td></tr>
-                                <tr><td>Km totales</td><td class="text-end"><span t-field="doc.distance_total_km"/></td></tr>
-                                <tr><td>Km gratuitos</td><td class="text-end"><span t-field="doc.free_distance_km"/></td></tr>
-                                <tr><td>Km facturables</td><td class="text-end"><span t-field="doc.billable_distance_km"/></td></tr>
-                                <tr><td>Importe desplazamiento</td><td class="text-end"><span t-field="doc.travel_amount"/></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <table class="table table-sm" t-if="doc.fuel_amount or doc.parking_amount or doc.toll_amount or doc.diet_amount or doc.overnight_amount or doc.other_travel_amount">
-                    <thead>
                         <tr>
-                            <th>Otros importes de viaje</th>
-                            <th class="text-end">Importe</th>
+                            <td class="autonomo_pdf_card" style="width: 50%;" t-if="doc.labor_hours or doc.labor_hour_price or doc.labor_amount">
+                                <div class="autonomo_pdf_value" style="margin-bottom: 6px;">Mano de obra</div>
+                                <table class="autonomo_pdf_line">
+                                    <tr><td>Horas</td><td><span t-field="doc.labor_hours"/></td></tr>
+                                    <tr><td>Precio por hora</td><td><span t-field="doc.labor_hour_price"/></td></tr>
+                                    <tr><td>Importe</td><td><span t-field="doc.labor_amount"/></td></tr>
+                                </table>
+                            </td>
+                            <td style="width: 2%;"></td>
+                            <td class="autonomo_pdf_card" style="width: 48%;" t-if="doc.client_material_amount or doc.distance_one_way_km or doc.travel_amount">
+                                <div class="autonomo_pdf_value" style="margin-bottom: 6px;">Materiales y kilometraje</div>
+                                <table class="autonomo_pdf_line">
+                                    <tr t-if="doc.client_material_amount"><td>Materiales presupuestados</td><td><span t-field="doc.client_material_amount"/></td></tr>
+                                    <tr><td>Km ida</td><td><span t-field="doc.distance_one_way_km"/></td></tr>
+                                    <tr><td>Km totales</td><td><span t-field="doc.distance_total_km"/></td></tr>
+                                    <tr><td>Km gratuitos</td><td><span t-field="doc.free_distance_km"/></td></tr>
+                                    <tr><td>Km facturables</td><td><span t-field="doc.billable_distance_km"/></td></tr>
+                                    <tr><td>Desplazamiento</td><td><span t-field="doc.travel_amount"/></td></tr>
+                                </table>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr t-if="doc.fuel_amount"><td>Combustible</td><td class="text-end"><span t-field="doc.fuel_amount"/></td></tr>
-                        <tr t-if="doc.parking_amount"><td>Aparcamiento</td><td class="text-end"><span t-field="doc.parking_amount"/></td></tr>
-                        <tr t-if="doc.toll_amount"><td>Peajes</td><td class="text-end"><span t-field="doc.toll_amount"/></td></tr>
-                        <tr t-if="doc.diet_amount"><td>Dietas</td><td class="text-end"><span t-field="doc.diet_amount"/></td></tr>
-                        <tr t-if="doc.overnight_amount"><td>Alojamiento</td><td class="text-end"><span t-field="doc.overnight_amount"/></td></tr>
-                        <tr t-if="doc.other_travel_amount"><td>Otros desplazamientos</td><td class="text-end"><span t-field="doc.other_travel_amount"/></td></tr>
-                    </tbody>
-                </table>
+                        <tr t-if="doc.fuel_amount or doc.parking_amount or doc.toll_amount or doc.diet_amount or doc.overnight_amount or doc.other_travel_amount">
+                            <td class="autonomo_pdf_card" colspan="3">
+                                <div class="autonomo_pdf_value" style="margin-bottom: 6px;">Otros importes de viaje</div>
+                                <table class="autonomo_pdf_line">
+                                    <tr t-if="doc.fuel_amount"><td>Combustible</td><td><span t-field="doc.fuel_amount"/></td></tr>
+                                    <tr t-if="doc.parking_amount"><td>Aparcamiento</td><td><span t-field="doc.parking_amount"/></td></tr>
+                                    <tr t-if="doc.toll_amount"><td>Peajes</td><td><span t-field="doc.toll_amount"/></td></tr>
+                                    <tr t-if="doc.diet_amount"><td>Dietas</td><td><span t-field="doc.diet_amount"/></td></tr>
+                                    <tr t-if="doc.overnight_amount"><td>Alojamiento</td><td><span t-field="doc.overnight_amount"/></td></tr>
+                                    <tr t-if="doc.other_travel_amount"><td>Otros desplazamientos</td><td><span t-field="doc.other_travel_amount"/></td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </xpath>
     </template>

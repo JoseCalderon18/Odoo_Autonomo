@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_apply_quote_template" type="object" string="Aplicar plantilla" class="btn-secondary"/>
-                <button name="action_create_quote_version" type="object" string="Guardar versión" class="btn-secondary"/>
+                <button name="action_create_quote_version" type="object" string="Guardar version" class="btn-secondary"/>
             </xpath>
             <xpath expr="//sheet/notebook" position="inside">
                 <page string="Costes y kilometraje">
@@ -19,6 +19,7 @@
                             <field name="labor_hours"/>
                             <field name="labor_hour_price"/>
                             <field name="labor_amount"/>
+                            <field name="client_material_amount"/>
                         </group>
                         <group string="Desplazamiento">
                             <field name="travel_rate_id"/>
