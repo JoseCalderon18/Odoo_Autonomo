@@ -19,6 +19,7 @@ class SaleOrder(models.Model):
     labor_hour_price = fields.Monetary(string="Precio hora", currency_field="currency_id")
     labor_amount = fields.Monetary(string="Importe mano de obra", compute="_compute_quote_amounts", store=True, currency_field="currency_id")
     client_material_amount = fields.Monetary(string="Materiales a mostrar al cliente", currency_field="currency_id")
+    material_line_ids = fields.One2many("autonomo.quote.material.line", "sale_order_id", string="Materiales previstos")
     travel_amount = fields.Monetary(string="Importe desplazamiento", compute="_compute_quote_amounts", store=True, currency_field="currency_id")
     fuel_amount = fields.Monetary(string="Combustible", currency_field="currency_id")
     parking_amount = fields.Monetary(string="Aparcamiento", currency_field="currency_id")
@@ -132,4 +133,29 @@ class SaleOrder(models.Model):
                 "snapshot_hash": hashlib.sha256(payload.encode()).hexdigest(),
             })
             order.quote_version = number
+        return True
+
+    def action_sync_materials_to_quote(self):
+        for order in self:
+            material_amount = sum(order.material_line_ids.filtered("include_in_customer_report").mapped("planned_amount"))
+            order.client_material_amount = material_amount
+            default_taxes = order.order_line.filtered("tax_ids")[:1].tax_ids
+            order.order_line.filtered(lambda line: line.name == "Materiales presupuestados" and line not in order.material_line_ids.mapped("sale_order_line_id")).unlink()
+            for material in order.material_line_ids.filtered("include_in_customer_report"):
+                product = material.product_id
+                values = {
+                    "order_id": order.id,
+                    "product_id": product.id if product else False,
+                    "name": material.name,
+                    "product_uom_qty": material.quantity,
+                    "product_uom_id": material.uom_id.id if material.uom_id else (product.uom_id.id if product else False),
+                    "price_unit": material.planned_unit_price,
+                }
+                if default_taxes:
+                    values["tax_ids"] = [(6, 0, default_taxes.ids)]
+                if material.sale_order_line_id:
+                    material.sale_order_line_id.write(values)
+                else:
+                    material.sale_order_line_id = self.env["sale.order.line"].create(values)
+                material.state = "quoted"
         return True

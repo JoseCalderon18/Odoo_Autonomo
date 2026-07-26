@@ -6,7 +6,8 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                         <style>
-                            table.table th, table.table td { border: 0 !important; padding: 5px 0; }
+                            table.table, table.table tr, table.table th, table.table td { border: 0 !important; box-shadow: none !important; }
+                            table.table th, table.table td { padding: 5px 0; }
                             table.table td:last-child { font-weight: 700; }
                             h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #dddddd; }
                         </style>
@@ -55,7 +56,8 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                         <style>
-                            table.table th, table.table td { border: 0 !important; padding: 5px 0; }
+                            table.table, table.table tr, table.table th, table.table td { border: 0 !important; box-shadow: none !important; }
+                            table.table th, table.table td { padding: 5px 0; }
                             table.table td:last-child { font-weight: 700; }
                             h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #dddddd; }
                         </style>

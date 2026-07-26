@@ -31,6 +31,15 @@ class TestAutonomoQuotes(TransactionCase):
         self.assertTrue(order.estimated_total_cost)
         order.action_create_quote_version()
         self.assertEqual(len(order.quote_version_ids), 1)
+        self.env["autonomo.quote.material.line"].create({
+            "sale_order_id": order.id,
+            "name": "Tablero test",
+            "quantity": 2,
+            "planned_unit_price": 25,
+            "include_in_customer_report": True,
+        })
+        order.action_sync_materials_to_quote()
+        self.assertEqual(order.client_material_amount, 50)
         report = self.env.ref("autonomo_quotes.action_report_autonomo_quote_cost_sheet")
         pdf_content, content_type = report._render_qweb_pdf(report.report_name, [order.id])
         self.assertIn(content_type, ("pdf", "html"))

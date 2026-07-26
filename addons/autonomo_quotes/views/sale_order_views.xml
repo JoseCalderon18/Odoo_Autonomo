@@ -8,6 +8,7 @@
             <xpath expr="//header" position="inside">
                 <button name="action_apply_quote_template" type="object" string="Aplicar plantilla" class="btn-secondary"/>
                 <button name="action_create_quote_version" type="object" string="Guardar version" class="btn-secondary"/>
+                <button name="action_sync_materials_to_quote" type="object" string="Volcar materiales" class="btn-secondary"/>
             </xpath>
             <xpath expr="//sheet/notebook" position="inside">
                 <page string="Costes y kilometraje">
@@ -60,6 +61,27 @@
                             <field name="height"/>
                             <field name="quantity"/>
                             <field name="uom_id"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Materiales previstos">
+                    <field name="material_line_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="material_kind"/>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="length"/>
+                            <field name="width"/>
+                            <field name="thickness"/>
+                            <field name="planned_unit_price"/>
+                            <field name="planned_amount"/>
+                            <field name="include_in_customer_report"/>
+                            <field name="sale_order_line_id"/>
+                            <field name="purchase_line_id"/>
+                            <field name="state"/>
                         </list>
                     </field>
                 </page>

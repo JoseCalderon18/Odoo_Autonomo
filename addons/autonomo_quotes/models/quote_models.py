@@ -91,6 +91,73 @@ class AutonomoQuoteSurcharge(models.Model):
     notes = fields.Text(string="Notas")
 
 
+class AutonomoQuoteMaterialLine(models.Model):
+    _name = "autonomo.quote.material.line"
+    _description = "Material previsto de presupuesto"
+    _order = "sale_order_id, sequence, id"
+
+    sale_order_id = fields.Many2one("sale.order", string="Presupuesto", required=True, ondelete="cascade")
+    sequence = fields.Integer(string="Secuencia", default=10)
+    product_id = fields.Many2one("product.product", string="Producto")
+    name = fields.Char(string="Descripcion", required=True)
+    material_kind = fields.Selection(
+        [
+            ("wood", "Madera"),
+            ("hardware", "Tornilleria"),
+            ("tube", "Tubo o perfil"),
+            ("board", "Tablero"),
+            ("paint", "Pintura o acabado"),
+            ("service", "Servicio externo"),
+            ("other", "Otro"),
+        ],
+        string="Tipo de material",
+        default="other",
+    )
+    quantity = fields.Float(string="Cantidad", default=1.0)
+    uom_id = fields.Many2one("uom.uom", string="Unidad de medida")
+    length = fields.Float(string="Largo")
+    width = fields.Float(string="Ancho")
+    thickness = fields.Float(string="Grosor")
+    dimension_note = fields.Char(string="Detalle de medidas")
+    planned_unit_price = fields.Monetary(string="Precio previsto unitario", currency_field="currency_id")
+    planned_amount = fields.Monetary(string="Importe previsto", compute="_compute_amounts", store=True, currency_field="currency_id")
+    sale_order_line_id = fields.Many2one("sale.order.line", string="Linea de presupuesto")
+    purchase_line_id = fields.Many2one("purchase.order.line", string="Linea de compra relacionada")
+    purchase_order_id = fields.Many2one("purchase.order", string="Compra", related="purchase_line_id.order_id", store=True, readonly=True)
+    include_in_customer_report = fields.Boolean(string="Mostrar al cliente", default=True)
+    state = fields.Selection(
+        [
+            ("planned", "Previsto"),
+            ("quoted", "Incluido en presupuesto"),
+            ("purchased", "Comprado"),
+            ("cancelled", "Cancelado"),
+        ],
+        string="Estado",
+        default="planned",
+    )
+    notes = fields.Text(string="Notas")
+    currency_id = fields.Many2one("res.currency", string="Moneda", related="sale_order_id.currency_id", store=True, readonly=True)
+
+    @api.depends("quantity", "planned_unit_price")
+    def _compute_amounts(self):
+        for line in self:
+            line.planned_amount = line.quantity * line.planned_unit_price
+
+    @api.onchange("product_id")
+    def _onchange_product_id(self):
+        for line in self:
+            if line.product_id:
+                line.name = line.name or line.product_id.display_name
+                line.uom_id = line.uom_id or line.product_id.uom_id
+                line.planned_unit_price = line.planned_unit_price or line.product_id.lst_price
+
+    @api.constrains("quantity", "planned_unit_price", "length", "width", "thickness")
+    def _check_non_negative(self):
+        for line in self:
+            if line.quantity < 0 or line.planned_unit_price < 0 or line.length < 0 or line.width < 0 or line.thickness < 0:
+                raise ValidationError("Las cantidades, precios y medidas no pueden ser negativos.")
+
+
 class AutonomoQuoteTemplate(models.Model):
     _name = "autonomo.quote.template"
     _description = "Plantilla de presupuesto"

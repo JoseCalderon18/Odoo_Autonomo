@@ -6,14 +6,21 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                         <style>
-                            table.table th, table.table td { border: 0 !important; }
+                            table.table th, table.table td { border: 0 !important; box-shadow: none !important; }
                             .autonomo_pdf_title { font-size: 19px; font-weight: 700; margin: 18px 0 12px; padding-bottom: 7px; border-bottom: 1px solid #dddddd; }
                             .autonomo_pdf_grid { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
                             .autonomo_pdf_card { background: #f7f7f7; border-radius: 6px; padding: 12px 14px; vertical-align: top; }
                             .autonomo_pdf_label { color: #555555; font-size: 12px; }
                             .autonomo_pdf_value { font-weight: 700; font-size: 14px; }
-                            .autonomo_pdf_line { width: 100%; border-collapse: collapse; }
-                            .autonomo_pdf_line th, .autonomo_pdf_line td { border: 0 !important; padding: 4px 0; }
+                            .autonomo_pdf_line { width: 100%; border-collapse: separate !important; border-spacing: 0 5px !important; }
+                            .autonomo_pdf_line, .autonomo_pdf_line tbody, .autonomo_pdf_line tr, .autonomo_pdf_line th, .autonomo_pdf_line td {
+                                border: 0 !important;
+                                border-top: 0 !important;
+                                border-bottom: 0 !important;
+                                box-shadow: none !important;
+                                background: transparent !important;
+                            }
+                            .autonomo_pdf_line th, .autonomo_pdf_line td { padding: 3px 0; }
                             .autonomo_pdf_line td:last-child, .autonomo_pdf_line th:last-child { text-align: right; font-weight: 700; }
                         </style>
                         <h2>Presupuesto profesional</h2>
@@ -41,7 +48,15 @@
                                 <td class="autonomo_pdf_card" style="width: 48%;">
                                     <div class="autonomo_pdf_value" style="margin-bottom: 6px;">Materiales y kilometraje</div>
                                     <table class="autonomo_pdf_line">
-                                        <tr t-if="doc.client_material_amount"><td>Materiales presupuestados</td><td><span t-field="doc.client_material_amount"/></td></tr>
+                                        <t t-set="public_materials" t-value="doc.material_line_ids.filtered('include_in_customer_report')"/>
+                                        <tr t-if="doc.client_material_amount and not public_materials"><td>Materiales presupuestados</td><td><span t-field="doc.client_material_amount"/></td></tr>
+                                        <tr t-foreach="public_materials" t-as="material">
+                                            <td>
+                                                <span t-field="material.name"/>
+                                                <span t-if="material.quantity"> (<span t-field="material.quantity"/> <span t-field="material.uom_id.name"/>)</span>
+                                            </td>
+                                            <td><span t-field="material.planned_amount"/></td>
+                                        </tr>
                                         <tr><td>Km ida</td><td><span t-field="doc.distance_one_way_km"/></td></tr>
                                         <tr><td>Km totales</td><td><span t-field="doc.distance_total_km"/></td></tr>
                                         <tr><td>Km gratuitos</td><td><span t-field="doc.free_distance_km"/></td></tr>

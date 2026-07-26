@@ -8,6 +8,21 @@
                     border-top: 0 !important;
                     border-bottom: 0 !important;
                 }
+                .o_main_table, .o_main_table thead, .o_main_table tbody, .o_main_table tr,
+                .o_has_total_table, .o_has_total_table thead, .o_has_total_table tbody, .o_has_total_table tr {
+                    border: 0 !important;
+                    border-top: 0 !important;
+                    border-bottom: 0 !important;
+                    box-shadow: none !important;
+                }
+                .o_main_table .text-muted { display: none !important; }
+                .o_total_table, .o_total_table table, .o_total_table tr, .o_total_table th, .o_total_table td,
+                .o_subtotal, .o_total, .border-black {
+                    border: 0 !important;
+                    border-top: 0 !important;
+                    border-bottom: 0 !important;
+                    box-shadow: none !important;
+                }
             </style>
         </xpath>
         <xpath expr="//div[@id='informations']" position="after">
@@ -19,8 +34,15 @@
                     .autonomo_pdf_card { background: #f7f7f7; border-radius: 6px; padding: 12px 14px; vertical-align: top; }
                     .autonomo_pdf_label { color: #555555; font-size: 12px; }
                     .autonomo_pdf_value { font-weight: 700; font-size: 14px; }
-                    .autonomo_pdf_line { width: 100%; border-collapse: collapse; }
-                    .autonomo_pdf_line td { border: 0 !important; padding: 4px 0; }
+                    .autonomo_pdf_line { width: 100%; border-collapse: separate !important; border-spacing: 0 5px !important; }
+                    .autonomo_pdf_line, .autonomo_pdf_line tbody, .autonomo_pdf_line tr, .autonomo_pdf_line th, .autonomo_pdf_line td {
+                        border: 0 !important;
+                        border-top: 0 !important;
+                        border-bottom: 0 !important;
+                        box-shadow: none !important;
+                        background: transparent !important;
+                    }
+                    .autonomo_pdf_line td { padding: 3px 0; }
                     .autonomo_pdf_line td:last-child { text-align: right; font-weight: 700; }
                 </style>
                 <div class="autonomo_pdf_block">
@@ -46,7 +68,15 @@
                             <td class="autonomo_pdf_card" style="width: 48%;" t-if="doc.client_material_amount or doc.distance_one_way_km or doc.travel_amount">
                                 <div class="autonomo_pdf_value" style="margin-bottom: 6px;">Materiales y kilometraje</div>
                                 <table class="autonomo_pdf_line">
-                                    <tr t-if="doc.client_material_amount"><td>Materiales presupuestados</td><td><span t-field="doc.client_material_amount"/></td></tr>
+                                    <t t-set="public_materials" t-value="doc.material_line_ids.filtered('include_in_customer_report')"/>
+                                    <tr t-if="doc.client_material_amount and not public_materials"><td>Materiales presupuestados</td><td><span t-field="doc.client_material_amount"/></td></tr>
+                                    <tr t-foreach="public_materials" t-as="material">
+                                        <td>
+                                            <span t-field="material.name"/>
+                                            <span t-if="material.quantity"> (<span t-field="material.quantity"/> <span t-field="material.uom_id.name"/>)</span>
+                                        </td>
+                                        <td><span t-field="material.planned_amount"/></td>
+                                    </tr>
                                     <tr><td>Km ida</td><td><span t-field="doc.distance_one_way_km"/></td></tr>
                                     <tr><td>Km totales</td><td><span t-field="doc.distance_total_km"/></td></tr>
                                     <tr><td>Km gratuitos</td><td><span t-field="doc.free_distance_km"/></td></tr>

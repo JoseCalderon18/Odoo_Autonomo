@@ -4,6 +4,7 @@ access_autonomo_travel_rate_manager,autonomo.travel.rate manager,model_autonomo_
 access_autonomo_cost_item_user,autonomo.cost.item user,model_autonomo_cost_item,autonomo_core.group_autonomo_user,1,0,0,0
 access_autonomo_cost_item_manager,autonomo.cost.item manager,model_autonomo_cost_item,autonomo_core.group_autonomo_manager,1,1,1,1
 access_autonomo_quote_surcharge_user,autonomo.quote.surcharge user,model_autonomo_quote_surcharge,autonomo_core.group_autonomo_user,1,1,1,1
+access_autonomo_quote_material_line_user,autonomo.quote.material.line user,model_autonomo_quote_material_line,autonomo_core.group_autonomo_user,1,1,1,1
 access_autonomo_quote_template_user,autonomo.quote.template user,model_autonomo_quote_template,autonomo_core.group_autonomo_user,1,0,0,0
 access_autonomo_quote_template_manager,autonomo.quote.template manager,model_autonomo_quote_template,autonomo_core.group_autonomo_manager,1,1,1,1
 access_autonomo_quote_template_line_user,autonomo.quote.template.line user,model_autonomo_quote_template_line,autonomo_core.group_autonomo_user,1,0,0,0
