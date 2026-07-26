@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_census_profile_list" model="ir.ui.view">
+        <field name="name">autonomo.census.profile.list</field>
+        <field name="model">autonomo.census.profile</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="company_id"/>
+                <field name="tax_identification_number"/>
+                <field name="census_status"/>
+                <field name="main_activity_id"/>
+                <field name="vat_regime"/>
+                <field name="irpf_estimation_method"/>
+                <field name="verified_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_census_profile_form" model="ir.ui.view">
+        <field name="name">autonomo.census.profile.form</field>
+        <field name="model">autonomo.census.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_report_autonomo_census_profile)d" type="action" class="oe_stat_button" icon="fa-print" string="Ficha PDF"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="tax_identification_number"/>
+                            <field name="census_status"/>
+                            <field name="census_start_date"/>
+                            <field name="census_end_date"/>
+                            <field name="tax_residence_country_id"/>
+                        </group>
+                        <group>
+                            <field name="main_activity_id"/>
+                            <field name="activity_start_date"/>
+                            <field name="usual_operations_start_date"/>
+                            <field name="vat_taxpayer"/>
+                            <field name="vat_regime"/>
+                            <field name="irpf_estimation_method"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Direcciones">
+                            <group>
+                                <field name="fiscal_address_partner_id"/>
+                                <field name="notification_address_partner_id"/>
+                                <field name="representative_partner_id"/>
+                                <field name="business_premises"/>
+                                <field name="premises_reference"/>
+                            </group>
+                        </page>
+                        <page string="Obligaciones">
+                            <group>
+                                <field name="withholding_work_obligation"/>
+                                <field name="withholding_professional_obligation"/>
+                                <field name="withholding_rent_obligation"/>
+                                <field name="intracommunity_operator"/>
+                                <field name="cash_criterion"/>
+                                <field name="special_vat_sector"/>
+                                <field name="electronic_notifications_enabled"/>
+                            </group>
+                        </page>
+                        <page string="Codigos">
+                            <group>
+                                <field name="iae_codes_json"/>
+                                <field name="cnae_codes_json"/>
+                            </group>
+                        </page>
+                        <page string="Control">
+                            <group>
+                                <field name="last_036_submission_id"/>
+                                <field name="verified_at"/>
+                            </group>
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_census_profile" model="ir.actions.act_window">
+        <field name="name">Perfiles censales</field>
+        <field name="res_model">autonomo.census.profile</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_autonomo_social_security_profile_list" model="ir.ui.view">
+        <field name="name">autonomo.social.security.profile.list</field>
+        <field name="model">autonomo.social.security.profile</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="company_id"/>
+                <field name="reta_status"/>
+                <field name="reta_start_date"/>
+                <field name="iae_code"/>
+                <field name="cnae_code"/>
+                <field name="estimated_annual_net_returns"/>
+                <field name="selected_contribution_base"/>
+                <field name="verified_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_social_security_profile_form" model="ir.ui.view">
+        <field name="name">autonomo.social.security.profile.form</field>
+        <field name="model">autonomo.social.security.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_report_autonomo_reta_profile)d" type="action" class="oe_stat_button" icon="fa-print" string="Ficha PDF"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="social_security_number_encrypted" groups="autonomo_core.group_autonomo_admin"/>
+                            <field name="reta_status"/>
+                            <field name="reta_start_date"/>
+                            <field name="reta_end_date"/>
+                        </group>
+                        <group>
+                            <field name="iae_code"/>
+                            <field name="cnae_code"/>
+                            <field name="activity_start_date"/>
+                            <field name="activity_address_partner_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cotizacion">
+                            <group>
+                                <field name="estimated_annual_net_returns"/>
+                                <field name="selected_contribution_base"/>
+                                <field name="contribution_bracket_code"/>
+                                <field name="mutual_insurance_name"/>
+                                <field name="mutual_insurance_code"/>
+                                <field name="coverage_options_json"/>
+                                <field name="benefit_or_reduction_code"/>
+                            </group>
+                        </page>
+                        <page string="Banco y documentos" groups="autonomo_core.group_autonomo_admin">
+                            <group>
+                                <field name="bank_account_id"/>
+                                <field name="bank_account_holder_partner_id"/>
+                                <field name="bank_holder_authorization_attachment_id"/>
+                            </group>
+                        </page>
+                        <page string="Situaciones especiales">
+                            <group>
+                                <field name="linked_company"/>
+                                <field name="community_property_member"/>
+                                <field name="family_collaborator"/>
+                                <field name="trade_dependent_worker"/>
+                            </group>
+                        </page>
+                        <page string="Control">
+                            <group>
+                                <field name="last_reta_submission_id"/>
+                                <field name="verified_at"/>
+                            </group>
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_social_security_profile" model="ir.actions.act_window">
+        <field name="name">Perfiles RETA</field>
+        <field name="res_model">autonomo.social.security.profile</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

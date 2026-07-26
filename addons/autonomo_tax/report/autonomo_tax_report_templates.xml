@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_autonomo_tax_return">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            table.table, table.table tr, table.table th, table.table td { border: 0 !important; box-shadow: none !important; }
+                            table.table th, table.table td { padding: 5px 0; }
+                            table.table td:last-child { font-weight: 700; }
+                            h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #dddddd; }
+                        </style>
+                        <h2>Borrador fiscal interno</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
+                        <p><strong>Modelo:</strong> <span t-field="doc.model_code"/> | <strong>Periodo:</strong> <span t-field="doc.period_id.period_code"/>/<span t-field="doc.fiscal_year"/></p>
+
+                        <h4>Estado y fuente</h4>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Estado</td><td><span t-field="doc.state"/></td></tr>
+                                <tr><td>Formulario</td><td><span t-field="doc.form_year"/> - <span t-field="doc.form_version"/></td></tr>
+                                <tr><td>Version de calculo</td><td><span t-field="doc.calculation_version"/></td></tr>
+                                <tr><td>Diseno oficial verificado</td><td><span t-field="doc.source_verified"/></td></tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Resultado</h4>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>A ingresar</td><td class="text-end"><span t-field="doc.amount_to_pay"/></td></tr>
+                                <tr><td>A devolver</td><td class="text-end"><span t-field="doc.amount_to_refund"/></td></tr>
+                                <tr><td>A compensar</td><td class="text-end"><span t-field="doc.amount_to_compensate"/></td></tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Presentacion</h4>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Fecha de presentacion</td><td><span t-field="doc.submitted_at"/></td></tr>
+                                <tr><td>Referencia</td><td><span t-field="doc.filing_reference"/></td></tr>
+                                <tr><td>Aprobado por</td><td><span t-field="doc.human_approved_by.name"/></td></tr>
+                                <tr><td>Fecha aprobacion</td><td><span t-field="doc.human_approved_at"/></td></tr>
+                            </tbody>
+                        </table>
+                        <p class="text-muted">Borrador interno informativo. No es una declaracion presentada ni sustituye validacion profesional humana.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_autonomo_tax_book">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            table.table, table.table tr, table.table th, table.table td { border: 0 !important; box-shadow: none !important; }
+                            table.table th, table.table td { padding: 5px 0; }
+                            table.table td:last-child { font-weight: 700; }
+                            h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #dddddd; }
+                        </style>
+                        <h2>Libro fiscal</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>Libro:</strong> <span t-field="doc.book_type"/></p>
+
+                        <h4>Documento</h4>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Factura</td><td><span t-field="doc.invoice_number"/></td></tr>
+                                <tr><td>Serie</td><td><span t-field="doc.invoice_series"/></td></tr>
+                                <tr><td>Fecha expedicion</td><td><span t-field="doc.issue_date"/></td></tr>
+                                <tr><td>Fecha operacion</td><td><span t-field="doc.operation_date"/></td></tr>
+                                <tr><td>Tercero</td><td><span t-field="doc.partner_name"/></td></tr>
+                                <tr><td>NIF tercero</td><td><span t-field="doc.partner_vat"/></td></tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Importes fiscales</h4>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Base imponible</td><td class="text-end"><span t-field="doc.tax_base"/></td></tr>
+                                <tr><td>Tipo IVA</td><td class="text-end"><span t-field="doc.vat_rate"/>%</td></tr>
+                                <tr><td>Cuota IVA</td><td class="text-end"><span t-field="doc.vat_amount"/></td></tr>
+                                <tr><td>IVA deducible</td><td class="text-end"><span t-field="doc.vat_deductible_amount"/></td></tr>
+                                <tr><td>IRPF deducible</td><td class="text-end"><span t-field="doc.irpf_deductible_amount"/></td></tr>
+                                <tr><td>Retencion</td><td class="text-end"><span t-field="doc.withholding_amount"/></td></tr>
+                                <tr><td>Total</td><td class="text-end"><span t-field="doc.total_amount"/></td></tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Integridad</h4>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Ejercicio</td><td><span t-field="doc.fiscal_year"/></td></tr>
+                                <tr><td>Trimestre</td><td><span t-field="doc.fiscal_quarter"/></td></tr>
+                                <tr><td>Hash documento</td><td><span t-field="doc.document_sha256"/></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

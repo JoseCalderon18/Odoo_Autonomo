@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_legal_query_list" model="ir.ui.view">
+        <field name="name">autonomo.legal.query.list</field>
+        <field name="model">autonomo.legal.query</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="query_type"/>
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="payload_hash"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_legal_query_form" model="ir.ui.view">
+        <field name="name">autonomo.legal.query.form</field>
+        <field name="model">autonomo.legal.query</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                        <field name="query_type"/>
+                        <field name="state"/>
+                        <field name="payload_hash"/>
+                    </group>
+                    <notebook>
+                        <page string="Consulta">
+                            <field name="question"/>
+                            <field name="anonymized_payload"/>
+                        </page>
+                        <page string="Respuesta">
+                            <field name="answer"/>
+                        </page>
+                        <page string="Citas">
+                            <field name="citation_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="source_id"/>
+                                    <field name="citation_kind"/>
+                                    <field name="block_id"/>
+                                    <field name="block_version_id"/>
+                                    <field name="title"/>
+                                    <field name="official_url"/>
+                                    <field name="verified_at"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_legal_query" model="ir.actions.act_window">
+        <field name="name">Consultas legales</field>
+        <field name="res_model">autonomo.legal.query</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

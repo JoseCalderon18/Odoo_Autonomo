@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_tax_obligation_list" model="ir.ui.view">
+        <field name="name">autonomo.tax.obligation.list</field>
+        <field name="model">autonomo.tax.obligation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="model_code"/>
+                <field name="tax_kind"/>
+                <field name="periodicity"/>
+                <field name="activity_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_tax_obligation_form" model="ir.ui.view">
+        <field name="name">autonomo.tax.obligation.form</field>
+        <field name="model">autonomo.tax.obligation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="activity_id"/>
+                        <field name="authority"/>
+                        <field name="tax_kind"/>
+                        <field name="model_code"/>
+                        <field name="periodicity"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="official_source_url"/>
+                        <field name="legal_reference"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_autonomo_tax_deadline_list" model="ir.ui.view">
+        <field name="name">autonomo.tax.deadline.list</field>
+        <field name="model">autonomo.tax.deadline</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="model_code"/>
+                <field name="fiscal_year"/>
+                <field name="period_code"/>
+                <field name="filing_start_date"/>
+                <field name="filing_end_date"/>
+                <field name="direct_debit_end_date"/>
+                <field name="verified_at"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_tax_deadline_form" model="ir.ui.view">
+        <field name="name">autonomo.tax.deadline.form</field>
+        <field name="model">autonomo.tax.deadline</field>
+        <field name="arch" type="xml">
+            <form><sheet><group>
+                <field name="authority"/><field name="model_code"/><field name="fiscal_year"/><field name="period_code"/>
+                <field name="filing_start_date"/><field name="filing_end_date"/><field name="direct_debit_end_date"/>
+                <field name="source_document_url"/><field name="source_version"/><field name="verified_at"/>
+            </group><field name="notes"/></sheet></form>
+        </field>
+    </record>
+
+    <record id="view_autonomo_tax_return_list" model="ir.ui.view">
+        <field name="name">autonomo.tax.return.list</field>
+        <field name="model">autonomo.tax.return</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="model_code"/>
+                <field name="period_id"/>
+                <field name="state"/>
+                <field name="amount_to_pay"/>
+                <field name="source_verified"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_tax_return_form" model="ir.ui.view">
+        <field name="name">autonomo.tax.return.form</field>
+        <field name="model">autonomo.tax.return</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_snapshot" type="object" string="Crear snapshot" class="btn-secondary"/>
+                    <button name="action_mark_ready" type="object" string="Marcar listo" class="btn-primary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="obligation_id"/>
+                        <field name="period_id"/>
+                        <field name="model_code"/>
+                        <field name="form_year"/>
+                        <field name="form_version"/>
+                        <field name="source_verified"/>
+                    </group>
+                    <group string="Resultado">
+                        <field name="amount_to_pay"/>
+                        <field name="amount_to_refund"/>
+                        <field name="amount_to_compensate"/>
+                    </group>
+                    <notebook>
+                        <page string="Cálculo"><field name="calculation_snapshot"/></page>
+                        <page string="Snapshots"><field name="book_snapshot_ids"/></page>
+                        <page string="Presentación"><group><field name="submitted_at"/><field name="filing_reference"/><field name="filing_receipt_id"/><field name="human_approved_by"/><field name="human_approved_at"/></group></page>
+                        <page string="Notas"><field name="notes"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_autonomo_tax_book_entry_list" model="ir.ui.view">
+        <field name="name">autonomo.tax.book.entry.list</field>
+        <field name="model">autonomo.tax.book.entry</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_type"/><field name="invoice_number"/><field name="issue_date"/><field name="partner_name"/><field name="tax_base"/><field name="vat_amount"/><field name="total_amount"/><field name="fiscal_year"/><field name="fiscal_quarter"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_tax_book_entry_form" model="ir.ui.view">
+        <field name="name">autonomo.tax.book.entry.form</field>
+        <field name="model">autonomo.tax.book.entry</field>
+        <field name="arch" type="xml">
+            <form><sheet><group>
+                <field name="company_id"/><field name="activity_id"/><field name="book_type"/><field name="source_move_id"/><field name="source_line_id"/>
+                <field name="invoice_number"/><field name="issue_date"/><field name="operation_date"/><field name="partner_name"/><field name="partner_vat"/>
+                <field name="tax_base"/><field name="vat_rate"/><field name="vat_amount"/><field name="vat_deductible_amount"/><field name="irpf_deductible_amount"/><field name="withholding_amount"/><field name="total_amount"/>
+                <field name="fiscal_year"/><field name="fiscal_quarter"/><field name="document_sha256"/>
+            </group></sheet></form>
+        </field>
+    </record>
+
+    <record id="view_autonomo_tax_book_snapshot_list" model="ir.ui.view">
+        <field name="name">autonomo.tax.book.snapshot.list</field>
+        <field name="model">autonomo.tax.book.snapshot</field>
+        <field name="arch" type="xml">
+            <list><field name="name"/><field name="tax_period_id"/><field name="snapshot_type"/><field name="snapshot_hash"/><field name="locked"/><field name="created_at"/></list>
+        </field>
+    </record>
+    <record id="view_autonomo_tax_book_snapshot_form" model="ir.ui.view">
+        <field name="name">autonomo.tax.book.snapshot.form</field>
+        <field name="model">autonomo.tax.book.snapshot</field>
+        <field name="arch" type="xml">
+            <form><sheet><group><field name="name"/><field name="company_id"/><field name="tax_period_id"/><field name="snapshot_type"/><field name="calculation_version"/><field name="snapshot_hash"/><field name="locked"/></group><field name="line_ids"/></sheet><chatter/></form>
+        </field>
+    </record>
+
+    <record id="view_autonomo_investment_asset_list" model="ir.ui.view">
+        <field name="name">autonomo.investment.asset.list</field>
+        <field name="model">autonomo.investment.asset</field>
+        <field name="arch" type="xml">
+            <list><field name="name"/><field name="acquisition_date"/><field name="vendor_id"/><field name="acquisition_amount"/><field name="vat_deductible_percent"/><field name="irpf_deductible_percent"/></list>
+        </field>
+    </record>
+    <record id="view_autonomo_investment_asset_form" model="ir.ui.view">
+        <field name="name">autonomo.investment.asset.form</field>
+        <field name="model">autonomo.investment.asset</field>
+        <field name="arch" type="xml">
+            <form><sheet><group><field name="name"/><field name="company_id"/><field name="activity_id"/><field name="acquisition_date"/><field name="vendor_id"/><field name="source_move_id"/><field name="acquisition_amount"/><field name="vat_deductible_percent"/><field name="irpf_deductible_percent"/><field name="amortization_method"/><field name="useful_life_years"/><field name="annual_amortization_amount"/><field name="official_source_url"/></group><field name="notes"/></sheet><chatter/></form>
+        </field>
+    </record>
+</odoo>

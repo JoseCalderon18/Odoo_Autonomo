@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_autonomo_core" model="ir.ui.view">
+        <field name="name">res.company.form.autonomo.core</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Autonomo">
+                    <group>
+                        <group>
+                            <field name="is_self_employed"/>
+                            <field name="owner_partner_id"/>
+                            <field name="fiscal_start_date"/>
+                            <field name="default_activity_id"/>
+                            <field name="tax_authority"/>
+                        </group>
+                        <group>
+                            <field name="irpf_estimation_method"/>
+                            <field name="default_vat_regime"/>
+                            <field name="reta_start_date"/>
+                            <field name="external_backup_enabled"/>
+                            <field name="last_verified_backup_at"/>
+                        </group>
+                    </group>
+                    <group string="Perfiles">
+                        <field name="census_profile_id"/>
+                        <field name="social_security_profile_id"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

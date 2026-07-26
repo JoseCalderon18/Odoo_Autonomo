@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_autonomo_legal_config_user,autonomo.legal.config user,model_autonomo_legal_config,autonomo_core.group_autonomo_user,1,0,0,0
+access_autonomo_legal_config_admin,autonomo.legal.config admin,model_autonomo_legal_config,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_legal_matter_user,autonomo.legal.matter user,model_autonomo_legal_matter,autonomo_core.group_autonomo_user,1,0,0,0
+access_autonomo_legal_matter_admin,autonomo.legal.matter admin,model_autonomo_legal_matter,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_legal_relation_user,autonomo.legal.relation user,model_autonomo_legal_relation,autonomo_core.group_autonomo_user,1,0,0,0
+access_autonomo_legal_relation_admin,autonomo.legal.relation admin,model_autonomo_legal_relation,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_legal_block_user,autonomo.legal.block user,model_autonomo_legal_block,autonomo_core.group_autonomo_user,1,0,0,0
+access_autonomo_legal_block_admin,autonomo.legal.block admin,model_autonomo_legal_block,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_legal_block_version_user,autonomo.legal.block.version user,model_autonomo_legal_block_version,autonomo_core.group_autonomo_user,1,0,0,0
+access_autonomo_legal_block_version_admin,autonomo.legal.block.version admin,model_autonomo_legal_block_version,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_legal_query_user,autonomo.legal.query user,model_autonomo_legal_query,autonomo_core.group_autonomo_user,1,1,1,0
+access_autonomo_legal_query_admin,autonomo.legal.query admin,model_autonomo_legal_query,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_legal_citation_user,autonomo.legal.citation user,model_autonomo_legal_citation,autonomo_core.group_autonomo_user,1,1,1,0
+access_autonomo_legal_citation_admin,autonomo.legal.citation admin,model_autonomo_legal_citation,autonomo_core.group_autonomo_admin,1,1,1,1
+access_autonomo_legal_sync_status_user,autonomo.legal.sync.status user,model_autonomo_legal_sync_status,autonomo_core.group_autonomo_user,1,0,0,0
+access_autonomo_legal_sync_status_admin,autonomo.legal.sync.status admin,model_autonomo_legal_sync_status,autonomo_core.group_autonomo_admin,1,1,1,1

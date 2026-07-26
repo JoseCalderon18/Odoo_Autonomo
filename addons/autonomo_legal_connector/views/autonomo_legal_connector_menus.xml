@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_autonomo_legal_root" name="Legal BOE" parent="autonomo_core.menu_autonomo_root" sequence="50" groups="autonomo_core.group_autonomo_user"/>
+    <menuitem id="menu_autonomo_legal_sources" name="Fuentes BOE" parent="menu_autonomo_legal_root" action="action_autonomo_legal_source_boe" sequence="10"/>
+    <menuitem id="menu_autonomo_legal_blocks" name="Bloques" parent="menu_autonomo_legal_root" action="action_autonomo_legal_block" sequence="20"/>
+    <menuitem id="menu_autonomo_legal_queries" name="Consultas" parent="menu_autonomo_legal_root" action="action_autonomo_legal_query" sequence="30"/>
+    <menuitem id="menu_autonomo_legal_syncs" name="Sincronizaciones" parent="menu_autonomo_legal_root" action="action_autonomo_legal_sync_status" sequence="40"/>
+    <menuitem id="menu_autonomo_legal_config" name="Configuracion" parent="menu_autonomo_legal_root" action="action_autonomo_legal_config" sequence="90" groups="autonomo_core.group_autonomo_admin"/>
+</odoo>

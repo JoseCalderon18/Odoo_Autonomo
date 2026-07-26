@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="source_boe_api_consolidada" model="autonomo.legal.source">
+        <field name="name">API de legislacion consolidada del BOE</field>
+        <field name="code">BOE-API-CONSOLIDADA</field>
+        <field name="authority">boe</field>
+        <field name="source_type">api</field>
+        <field name="official_url">https://www.boe.es/datosabiertos/api/api.php</field>
+        <field name="document_reference">/datosabiertos/api/legislacion-consolidada</field>
+    </record>
+
+    <record id="source_boe_autonomo" model="autonomo.legal.source">
+        <field name="name">Estatuto del trabajo autonomo</field>
+        <field name="code">BOE-A-2007-13409</field>
+        <field name="authority">boe</field>
+        <field name="source_type">law</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-2007-13409</field>
+        <field name="document_reference">Ley 20/2007, de 11 de julio</field>
+    </record>
+
+    <record id="source_boe_irpf" model="autonomo.legal.source">
+        <field name="name">Ley del IRPF</field>
+        <field name="code">BOE-A-2006-20764</field>
+        <field name="authority">boe</field>
+        <field name="source_type">law</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764</field>
+        <field name="document_reference">Ley 35/2006</field>
+    </record>
+
+    <record id="source_boe_iva" model="autonomo.legal.source">
+        <field name="name">Ley del IVA</field>
+        <field name="code">BOE-A-1992-28740</field>
+        <field name="authority">boe</field>
+        <field name="source_type">law</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740</field>
+        <field name="document_reference">Ley 37/1992</field>
+    </record>
+
+    <record id="source_boe_facturacion" model="autonomo.legal.source">
+        <field name="name">Reglamento de facturacion</field>
+        <field name="code">BOE-A-2012-14696</field>
+        <field name="authority">boe</field>
+        <field name="source_type">regulation</field>
+        <field name="official_url">https://www.boe.es/buscar/act.php?id=BOE-A-2012-14696</field>
+        <field name="document_reference">Real Decreto 1619/2012</field>
+    </record>
+
+    <record id="source_aeat_036" model="autonomo.legal.source">
+        <field name="name">Modelo 036: censo de empresarios, profesionales y retenedores</field>
+        <field name="code">AEAT-MODELO-036</field>
+        <field name="authority">aeat</field>
+        <field name="source_type">guide</field>
+        <field name="official_url">https://sede.agenciatributaria.gob.es/Sede/procedimientoini/G322.shtml</field>
+        <field name="document_reference">Procedimiento AEAT G322</field>
+    </record>
+
+    <record id="source_aeat_guia_036" model="autonomo.legal.source">
+        <field name="name">Guia practica de cumplimentacion del modelo censal 036</field>
+        <field name="code">AEAT-GUIA-036</field>
+        <field name="authority">aeat</field>
+        <field name="source_type">administrative_instruction</field>
+        <field name="official_url">https://sede.agenciatributaria.gob.es/Sede/Ayuda/guia-practica-declaracion-censal.html</field>
+        <field name="document_reference">Guia practica AEAT 036</field>
+    </record>
+
+    <record id="source_importass_autonomo" model="autonomo.legal.source">
+        <field name="name">Guia practica de trabajo autonomo Importass</field>
+        <field name="code">IMPORTASS-GUIA-AUTONOMO</field>
+        <field name="authority">tgss</field>
+        <field name="source_type">guide</field>
+        <field name="official_url">https://portal.seg-social.gob.es/wps/portal/importass/importass/Colectivos/trabajo%2Bautonomo/guia</field>
+        <field name="document_reference">Guia practica Importass</field>
+    </record>
+
+    <record id="source_importass_alta_autonomo" model="autonomo.legal.source">
+        <field name="name">Alta en trabajo autonomo</field>
+        <field name="code">IMPORTASS-ALTA-RETA</field>
+        <field name="authority">tgss</field>
+        <field name="source_type">administrative_instruction</field>
+        <field name="official_url">https://portal.seg-social.gob.es/wps/portal/importass/importass/Categorias/Altas%2C%2Bbajas%2By%2Bmodificaciones/Altas%2By%2Bafiliacion%2Bde%2Btrabajadores/Alta_trabajo_autonomo</field>
+        <field name="document_reference">Tramite Importass de alta en trabajo autonomo</field>
+    </record>
+</odoo>

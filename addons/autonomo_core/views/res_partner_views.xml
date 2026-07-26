@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_autonomo_core" model="ir.ui.view">
+        <field name="name">res.partner.form.autonomo.core</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Fiscalidad autonomo">
+                    <group>
+                        <group>
+                            <field name="tax_subject_kind"/>
+                            <field name="tax_data_verified_at"/>
+                            <field name="privacy_alias"/>
+                        </group>
+                        <group>
+                            <field name="e_invoice_required"/>
+                            <field name="e_invoice_channel"/>
+                            <field name="e_invoice_endpoint"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

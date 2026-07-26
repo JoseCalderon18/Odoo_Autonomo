@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_autonomo_census_profile">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            table.table, table.table tr, table.table th, table.table td { border: 0 !important; box-shadow: none !important; }
+                            table.table th, table.table td { padding: 5px 0; }
+                            table.table td:last-child { font-weight: 700; }
+                            h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #dddddd; }
+                        </style>
+                        <h2>Ficha censal interna del autonomo</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.tax_identification_number"/></p>
+                        <p><strong>Estado:</strong> <span t-field="doc.census_status"/> | <strong>Verificado:</strong> <span t-field="doc.verified_at"/></p>
+                        <table class="table table-sm">
+                            <tr><td>Actividad principal</td><td><span t-field="doc.main_activity_id.name"/></td></tr>
+                            <tr><td>Fecha alta censal</td><td><span t-field="doc.census_start_date"/></td></tr>
+                            <tr><td>Regimen IVA</td><td><span t-field="doc.vat_regime"/></td></tr>
+                            <tr><td>Metodo IRPF</td><td><span t-field="doc.irpf_estimation_method"/></td></tr>
+                            <tr><td>Operador intracomunitario</td><td><span t-field="doc.intracommunity_operator"/></td></tr>
+                            <tr><td>Notificaciones electronicas</td><td><span t-field="doc.electronic_notifications_enabled"/></td></tr>
+                        </table>
+                        <p class="text-muted">No es formulario oficial del modelo 036. Es una ficha interna para revision y preparacion.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

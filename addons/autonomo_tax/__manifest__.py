@@ -1,0 +1,22 @@
+{
+    "name": "Autonomo Tax",
+    "summary": "Obligaciones, libros, periodos, borradores y snapshots fiscales",
+    "description": "Gestion fiscal informativa para autonomos en Espana con fuentes versionadas, checklists y revision humana obligatoria.",
+    "version": "19.0.1.0.0",
+    "category": "Accounting/Localizations",
+    "author": "Jose",
+    "license": "LGPL-3",
+    "depends": ["autonomo_core", "account"],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/autonomo_tax_sources_data.xml",
+        "demo/autonomo_tax_demo.xml",
+        "report/autonomo_tax_report_templates.xml",
+        "report/autonomo_tax_reports.xml",
+        "views/autonomo_tax_views.xml",
+        "views/autonomo_tax_menus.xml",
+    ],
+    "demo": [],
+    "application": False,
+    "installable": True,
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_ai_review_list" model="ir.ui.view">
+        <field name="name">autonomo.ai.review.list</field>
+        <field name="model">autonomo.ai.review</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="review_type"/>
+                <field name="question"/>
+                <field name="risk_level"/>
+                <field name="requires_human_review"/>
+                <field name="state"/>
+                <field name="created_at"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_ai_review_form" model="ir.ui.view">
+        <field name="name">autonomo.ai.review.form</field>
+        <field name="model">autonomo.ai.review</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_accept" type="object" string="Aceptar" class="btn-primary"/>
+                    <button name="action_reject" type="object" string="Rechazar" class="btn-secondary"/>
+                    <button name="action_request_human_review" type="object" string="Solicitar revisión humana" class="btn-secondary"/>
+                    <button name="action_create_issue" type="object" string="Crear incidencia" class="btn-secondary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="review_type"/>
+                        <field name="source_model"/>
+                        <field name="source_record_id"/>
+                        <field name="risk_level"/>
+                        <field name="requires_human_review"/>
+                        <field name="provider"/>
+                        <field name="model_name"/>
+                        <field name="prompt_version"/>
+                        <field name="request_payload_hash"/>
+                    </group>
+                    <notebook>
+                        <page string="Pregunta"><field name="question"/></page>
+                        <page string="Respuesta"><field name="answer"/><field name="structured_result"/></page>
+                        <page string="Payload anonimizado"><field name="anonymized_payload"/></page>
+                        <page string="Fuentes">
+                            <field name="citation_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="title"/>
+                                    <field name="authority"/>
+                                    <field name="official_url"/>
+                                    <field name="source_version"/>
+                                    <field name="verified_at"/>
+                                    <field name="is_expired"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Incidencias"><field name="issue_ids"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_autonomo_compliance_issue_list" model="ir.ui.view">
+        <field name="name">autonomo.compliance.issue.list</field>
+        <field name="model">autonomo.compliance.issue</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="issue_type"/>
+                <field name="risk_level"/>
+                <field name="priority"/>
+                <field name="state"/>
+                <field name="assigned_user_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_autonomo_compliance_issue_form" model="ir.ui.view">
+        <field name="name">autonomo.compliance.issue.form</field>
+        <field name="model">autonomo.compliance.issue</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_resolve" type="object" string="Resolver" class="btn-primary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group><field name="name"/><field name="company_id"/><field name="review_id"/><field name="issue_type"/><field name="risk_level"/><field name="priority"/><field name="assigned_user_id"/></group>
+                    <field name="description"/>
+                    <field name="resolution_notes"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+</odoo>

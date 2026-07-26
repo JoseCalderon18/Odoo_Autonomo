@@ -1,0 +1,21 @@
+{
+    "name": "Autonomo AI Review",
+    "summary": "Registro de revisiones IA, citas e incidencias",
+    "description": "Capa de auditoria para revisiones asistidas por IA con fuentes, anonimizacion, aprobacion humana e incidencias.",
+    "version": "19.0.1.0.0",
+    "category": "Productivity",
+    "author": "Jose",
+    "license": "LGPL-3",
+    "depends": ["autonomo_tax", "autonomo_legal_connector"],
+    "data": [
+        "security/ir.model.access.csv",
+        "demo/autonomo_ai_review_demo.xml",
+        "report/autonomo_ai_review_report_templates.xml",
+        "report/autonomo_ai_review_reports.xml",
+        "views/autonomo_ai_review_views.xml",
+        "views/autonomo_ai_review_menus.xml",
+    ],
+    "demo": [],
+    "application": False,
+    "installable": True,
+}

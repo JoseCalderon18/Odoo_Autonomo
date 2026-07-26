@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_autonomo_owner_demo" model="res.partner">
+        <field name="name">Titular Demo Autonomo</field>
+        <field name="vat">ES00000000T</field>
+        <field name="tax_subject_kind">self_employed</field>
+        <field name="privacy_alias">AUTONOMO_DEMO</field>
+    </record>
+
+    <record id="base.main_company" model="res.company">
+        <field name="is_self_employed">1</field>
+        <field name="owner_partner_id" ref="partner_autonomo_owner_demo"/>
+        <field name="fiscal_start_date">2026-01-01</field>
+        <field name="tax_authority">aeat</field>
+    </record>
+
+    <record id="activity_montaje_muebles" model="autonomo.activity">
+        <field name="name">Montaje de muebles</field><field name="code">ACT-001</field><field name="company_id" ref="base.main_company"/><field name="iae_code">504.5</field><field name="cnae_code">4332</field><field name="activity_kind">business</field><field name="legal_source_ids" eval="[(6, 0, [ref('autonomo_core.source_aeat_guia_036')])]"/>
+    </record>
+    <record id="activity_montaje_cocinas" model="autonomo.activity">
+        <field name="name">Montaje de cocinas</field><field name="code">ACT-002</field><field name="company_id" ref="base.main_company"/><field name="iae_code">504.5</field><field name="cnae_code">4332</field><field name="activity_kind">business</field><field name="legal_source_ids" eval="[(6, 0, [ref('autonomo_core.source_aeat_guia_036')])]"/>
+    </record>
+    <record id="activity_carpinteria_madera" model="autonomo.activity">
+        <field name="name">Carpinteria de madera</field><field name="code">ACT-003</field><field name="company_id" ref="base.main_company"/><field name="iae_code">505.5</field><field name="cnae_code">1623</field><field name="activity_kind">business</field>
+    </record>
+    <record id="activity_carpinteria_metalica" model="autonomo.activity">
+        <field name="name">Carpinteria metalica</field><field name="code">ACT-004</field><field name="company_id" ref="base.main_company"/><field name="iae_code">505.5</field><field name="cnae_code">2512</field><field name="activity_kind">business</field>
+    </record>
+    <record id="activity_instalaciones_electricas" model="autonomo.activity">
+        <field name="name">Instalaciones electricas</field><field name="code">ACT-005</field><field name="company_id" ref="base.main_company"/><field name="iae_code">504.1</field><field name="cnae_code">4321</field><field name="activity_kind">business</field>
+    </record>
+    <record id="activity_albanileria" model="autonomo.activity">
+        <field name="name">Albanileria</field><field name="code">ACT-006</field><field name="company_id" ref="base.main_company"/><field name="iae_code">501.3</field><field name="cnae_code">4399</field><field name="activity_kind">business</field>
+    </record>
+    <record id="activity_reforma_integral" model="autonomo.activity">
+        <field name="name">Reforma integral</field><field name="code">ACT-007</field><field name="company_id" ref="base.main_company"/><field name="iae_code">501.1</field><field name="cnae_code">4121</field><field name="activity_kind">business</field>
+    </record>
+    <record id="activity_mobiliario_clinico" model="autonomo.activity">
+        <field name="name">Mobiliario clinico</field><field name="code">ACT-008</field><field name="company_id" ref="base.main_company"/><field name="iae_code">468.1</field><field name="cnae_code">3101</field><field name="activity_kind">business</field>
+    </record>
+    <record id="activity_mesas_resina" model="autonomo.activity">
+        <field name="name">Mesas de resina</field><field name="code">ACT-009</field><field name="company_id" ref="base.main_company"/><field name="iae_code">468.1</field><field name="cnae_code">3109</field><field name="activity_kind">business</field>
+    </record>
+    <record id="activity_reparacion_mobiliario" model="autonomo.activity">
+        <field name="name">Reparacion de mobiliario</field><field name="code">ACT-010</field><field name="company_id" ref="base.main_company"/><field name="iae_code">691.9</field><field name="cnae_code">9524</field><field name="activity_kind">business</field>
+    </record>
+
+    <record id="category_ingresos_montaje" model="autonomo.tax.category">
+        <field name="code">CAT-001</field><field name="name">Ingresos por montaje</field><field name="company_id" ref="base.main_company"/><field name="category_kind">income</field><field name="model_reference">303/130</field><field name="official_source_url">https://sede.agenciatributaria.gob.es/</field>
+    </record>
+    <record id="category_ingresos_carpinteria" model="autonomo.tax.category">
+        <field name="code">CAT-002</field><field name="name">Ingresos por carpinteria</field><field name="company_id" ref="base.main_company"/><field name="category_kind">income</field><field name="model_reference">303/130</field>
+    </record>
+    <record id="category_materiales" model="autonomo.tax.category">
+        <field name="code">CAT-003</field><field name="name">Materiales</field><field name="company_id" ref="base.main_company"/><field name="category_kind">expense</field><field name="default_irpf_deductible_percent">100</field><field name="default_vat_deductible_percent">100</field>
+    </record>
+    <record id="category_herramientas" model="autonomo.tax.category">
+        <field name="code">CAT-004</field><field name="name">Herramientas</field><field name="company_id" ref="base.main_company"/><field name="category_kind">investment</field><field name="default_irpf_deductible_percent">100</field><field name="default_vat_deductible_percent">100</field>
+    </record>
+    <record id="category_combustible" model="autonomo.tax.category">
+        <field name="code">CAT-005</field><field name="name">Combustible</field><field name="company_id" ref="base.main_company"/><field name="category_kind">expense</field><field name="default_irpf_deductible_percent">50</field><field name="default_vat_deductible_percent">50</field><field name="notes">Caso demo marcado para revision humana.</field>
+    </record>
+    <record id="category_seguro_rc" model="autonomo.tax.category">
+        <field name="code">CAT-006</field><field name="name">Seguro RC</field><field name="company_id" ref="base.main_company"/><field name="category_kind">expense</field>
+    </record>
+    <record id="category_gestoria" model="autonomo.tax.category">
+        <field name="code">CAT-007</field><field name="name">Gestoria</field><field name="company_id" ref="base.main_company"/><field name="category_kind">expense</field>
+    </record>
+    <record id="category_telefonia" model="autonomo.tax.category">
+        <field name="code">CAT-008</field><field name="name">Telefonia</field><field name="company_id" ref="base.main_company"/><field name="category_kind">expense</field><field name="default_irpf_deductible_percent">50</field><field name="default_vat_deductible_percent">50</field>
+    </record>
+    <record id="category_formacion" model="autonomo.tax.category">
+        <field name="code">CAT-009</field><field name="name">Formacion</field><field name="company_id" ref="base.main_company"/><field name="category_kind">expense</field>
+    </record>
+    <record id="category_publicidad" model="autonomo.tax.category">
+        <field name="code">CAT-010</field><field name="name">Publicidad</field><field name="company_id" ref="base.main_company"/><field name="category_kind">expense</field>
+    </record>
+
+    <record id="procedure_036_alta" model="autonomo.procedure">
+        <field name="name">Alta modelo 036</field><field name="code">PROC-001</field><field name="company_id" ref="base.main_company"/><field name="authority">aeat</field><field name="procedure_type">registration</field><field name="model_code">036</field><field name="official_source_url">https://sede.agenciatributaria.gob.es/Sede/procedimientoini/G322.shtml</field><field name="legal_source_ids" eval="[(6, 0, [ref('autonomo_core.source_aeat_036'), ref('autonomo_core.source_aeat_guia_036')])]"/>
+    </record>
+    <record id="procedure_036_modificacion" model="autonomo.procedure">
+        <field name="name">Modificacion modelo 036</field><field name="code">PROC-002</field><field name="company_id" ref="base.main_company"/><field name="authority">aeat</field><field name="procedure_type">modification</field><field name="model_code">036</field>
+    </record>
+    <record id="procedure_036_baja" model="autonomo.procedure">
+        <field name="name">Baja modelo 036</field><field name="code">PROC-003</field><field name="company_id" ref="base.main_company"/><field name="authority">aeat</field><field name="procedure_type">deregistration</field><field name="model_code">036</field>
+    </record>
+    <record id="procedure_reta_alta" model="autonomo.procedure">
+        <field name="name">Alta RETA</field><field name="code">PROC-004</field><field name="company_id" ref="base.main_company"/><field name="authority">tgss</field><field name="procedure_type">social_security</field><field name="official_source_url">https://portal.seg-social.gob.es/wps/portal/importass/importass/Categorias/Altas%2C%2Bbajas%2By%2Bmodificaciones/Altas%2By%2Bafiliacion%2Bde%2Btrabajadores/Alta_trabajo_autonomo</field><field name="legal_source_ids" eval="[(6, 0, [ref('autonomo_core.source_importass_alta_autonomo'), ref('autonomo_core.source_importass_autonomo')])]"/>
+    </record>
+    <record id="procedure_reta_modificacion" model="autonomo.procedure">
+        <field name="name">Modificacion RETA</field><field name="code">PROC-005</field><field name="company_id" ref="base.main_company"/><field name="authority">tgss</field><field name="procedure_type">modification</field>
+    </record>
+    <record id="procedure_reta_baja" model="autonomo.procedure">
+        <field name="name">Baja RETA</field><field name="code">PROC-006</field><field name="company_id" ref="base.main_company"/><field name="authority">tgss</field><field name="procedure_type">deregistration</field>
+    </record>
+    <record id="procedure_tgss_documentos" model="autonomo.procedure">
+        <field name="name">Aportacion documental TGSS</field><field name="code">PROC-007</field><field name="company_id" ref="base.main_company"/><field name="authority">tgss</field><field name="procedure_type">document_submission</field>
+    </record>
+    <record id="procedure_bonificacion" model="autonomo.procedure">
+        <field name="name">Solicitud de bonificacion</field><field name="code">PROC-008</field><field name="company_id" ref="base.main_company"/><field name="authority">tgss</field><field name="procedure_type">benefit</field>
+    </record>
+    <record id="procedure_cambio_base" model="autonomo.procedure">
+        <field name="name">Cambio de base</field><field name="code">PROC-009</field><field name="company_id" ref="base.main_company"/><field name="authority">tgss</field><field name="procedure_type">modification</field>
+    </record>
+    <record id="procedure_nueva_actividad" model="autonomo.procedure">
+        <field name="name">Comunicacion de nueva actividad</field><field name="code">PROC-010</field><field name="company_id" ref="base.main_company"/><field name="authority">aeat</field><field name="procedure_type">modification</field>
+    </record>
+
+    <record id="req_036_nif" model="autonomo.procedure.requirement">
+        <field name="procedure_id" ref="procedure_036_alta"/><field name="sequence">10</field><field name="name">Identidad y NIF</field><field name="requirement_type">field</field><field name="field_model">autonomo.census.profile</field><field name="field_name">tax_identification_number</field><field name="official_source_url">https://sede.agenciatributaria.gob.es/Sede/procedimientoini/G322.shtml</field>
+    </record>
+    <record id="req_036_actividad" model="autonomo.procedure.requirement">
+        <field name="procedure_id" ref="procedure_036_alta"/><field name="sequence">20</field><field name="name">Actividad economica e IAE</field><field name="requirement_type">field</field><field name="field_model">autonomo.census.profile</field><field name="field_name">main_activity_id</field>
+    </record>
+    <record id="req_reta_iae" model="autonomo.procedure.requirement">
+        <field name="procedure_id" ref="procedure_reta_alta"/><field name="sequence">10</field><field name="name">IAE obligatorio para alta RETA</field><field name="requirement_type">field</field><field name="field_model">autonomo.social.security.profile</field><field name="field_name">iae_code</field>
+    </record>
+    <record id="req_reta_cnae" model="autonomo.procedure.requirement">
+        <field name="procedure_id" ref="procedure_reta_alta"/><field name="sequence">20</field><field name="name">CNAE obligatorio para alta RETA</field><field name="requirement_type">field</field><field name="field_model">autonomo.social.security.profile</field><field name="field_name">cnae_code</field>
+    </record>
+    <record id="req_reta_rendimientos" model="autonomo.procedure.requirement">
+        <field name="procedure_id" ref="procedure_reta_alta"/><field name="sequence">30</field><field name="name">Estimacion de rendimientos netos</field><field name="requirement_type">declaration</field><field name="field_model">autonomo.social.security.profile</field><field name="field_name">estimated_annual_net_returns</field>
+    </record>
+
+    <record id="census_profile_demo" model="autonomo.census.profile">
+        <field name="company_id" ref="base.main_company"/><field name="tax_identification_number">ES00000000T</field><field name="census_status">active</field><field name="census_start_date">2026-01-01</field><field name="main_activity_id" ref="activity_montaje_muebles"/><field name="vat_taxpayer">1</field><field name="vat_regime">general</field><field name="irpf_estimation_method">direct_simplified</field><field name="iae_codes_json" eval="['504.5']"/><field name="cnae_codes_json" eval="['4332']"/>
+    </record>
+    <record id="reta_profile_demo" model="autonomo.social.security.profile">
+        <field name="company_id" ref="base.main_company"/><field name="reta_status">active</field><field name="reta_start_date">2026-01-01</field><field name="iae_code">504.5</field><field name="cnae_code">4332</field><field name="estimated_annual_net_returns">24000</field><field name="selected_contribution_base">1200</field><field name="contribution_bracket_code">DEMO-2026</field><field name="mutual_insurance_name">Mutua Demo</field>
+    </record>
+
+    <record id="submission_demo_01" model="autonomo.submission"><field name="name">Alta 036 demo incompleta</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_036_alta"/><field name="state">incomplete</field><field name="draft_date">2026-01-02</field></record>
+    <record id="submission_demo_02" model="autonomo.submission"><field name="name">Modificacion 036 demo</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_036_modificacion"/><field name="state">draft</field><field name="draft_date">2026-02-05</field></record>
+    <record id="submission_demo_03" model="autonomo.submission"><field name="name">Baja 036 demo cancelada</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_036_baja"/><field name="state">cancelled</field><field name="draft_date">2026-03-10</field></record>
+    <record id="submission_demo_04" model="autonomo.submission"><field name="name">Alta RETA demo lista</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_reta_alta"/><field name="state">ready</field><field name="draft_date">2026-01-02</field><field name="ready_date">2026-01-03</field></record>
+    <record id="submission_demo_05" model="autonomo.submission"><field name="name">Modificacion RETA demo revision</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_reta_modificacion"/><field name="state">review</field><field name="draft_date">2026-04-01</field></record>
+    <record id="submission_demo_06" model="autonomo.submission"><field name="name">Baja RETA demo presentada</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_reta_baja"/><field name="state">submitted</field><field name="submitted_at">2026-05-01 10:00:00</field><field name="filing_reference">TGSS-DEMO-0001</field></record>
+    <record id="submission_demo_07" model="autonomo.submission"><field name="name">Aportacion documental aceptada</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_tgss_documentos"/><field name="state">accepted</field><field name="submitted_at">2026-05-10 10:00:00</field></record>
+    <record id="submission_demo_08" model="autonomo.submission"><field name="name">Bonificacion rechazada demo</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_bonificacion"/><field name="state">rejected</field><field name="submitted_at">2026-05-15 10:00:00</field></record>
+    <record id="submission_demo_09" model="autonomo.submission"><field name="name">Cambio de base corregido</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_cambio_base"/><field name="state">corrected</field><field name="submitted_at">2026-06-01 10:00:00</field></record>
+    <record id="submission_demo_10" model="autonomo.submission"><field name="name">Nueva actividad pendiente</field><field name="company_id" ref="base.main_company"/><field name="procedure_id" ref="procedure_nueva_actividad"/><field name="state">draft</field><field name="draft_date">2026-06-15</field></record>
+</odoo>

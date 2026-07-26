@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_autonomo_tax_return" model="ir.actions.report">
+        <field name="name">Borrador fiscal</field>
+        <field name="model">autonomo.tax.return</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_tax.report_autonomo_tax_return</field>
+        <field name="report_file">autonomo_tax.report_autonomo_tax_return</field>
+        <field name="paperformat_id" ref="autonomo_core.paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="model_autonomo_tax_return"/>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="action_report_autonomo_tax_book" model="ir.actions.report">
+        <field name="name">Libro fiscal</field>
+        <field name="model">autonomo.tax.book.entry</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_tax.report_autonomo_tax_book</field>
+        <field name="report_file">autonomo_tax.report_autonomo_tax_book</field>
+        <field name="paperformat_id" ref="autonomo_core.paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="model_autonomo_tax_book_entry"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

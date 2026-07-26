@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_autonomo_quote_professional" model="ir.actions.report">
+        <field name="name">Presupuesto profesional</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_quotes.report_autonomo_quote_professional</field>
+        <field name="report_file">autonomo_quotes.report_autonomo_quote_professional</field>
+        <field name="paperformat_id" ref="autonomo_core.paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_autonomo_quote_cost_sheet" model="ir.actions.report">
+        <field name="name">Hoja interna de costes</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_quotes.report_autonomo_quote_cost_sheet</field>
+        <field name="report_file">autonomo_quotes.report_autonomo_quote_cost_sheet</field>
+        <field name="paperformat_id" ref="autonomo_core.paperformat_autonomo_a4"/>
+        <field name="binding_model_id" eval="False"/>
+        <!-- Informe privado: no se enlaza al menu Imprimir para evitar enviarlo al cliente. -->
+    </record>
+
+    <record id="action_report_autonomo_quote_measurements" model="ir.actions.report">
+        <field name="name">Informe de mediciones</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_quotes.report_autonomo_quote_measurements</field>
+        <field name="report_file">autonomo_quotes.report_autonomo_quote_measurements</field>
+        <field name="paperformat_id" ref="autonomo_core.paperformat_autonomo_a4"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_autonomo_quote_versions" model="ir.actions.report">
+        <field name="name">Historial de versiones</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">autonomo_quotes.report_autonomo_quote_versions</field>
+        <field name="report_file">autonomo_quotes.report_autonomo_quote_versions</field>
+        <field name="paperformat_id" ref="autonomo_core.paperformat_autonomo_a4"/>
+        <field name="binding_model_id" eval="False"/>
+        <!-- Informe privado: no se enlaza al menu Imprimir para evitar enviarlo al cliente. -->
+    </record>
+</odoo>

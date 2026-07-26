@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_autonomo_quotes_root" name="Presupuestos" parent="autonomo_core.menu_autonomo_root" sequence="15" groups="autonomo_core.group_autonomo_user"/>
+    <menuitem id="menu_autonomo_quote_templates" name="Plantillas" parent="menu_autonomo_quotes_root" action="action_autonomo_quote_template" sequence="10"/>
+    <menuitem id="menu_autonomo_travel_rates" name="Tarifas de desplazamiento" parent="menu_autonomo_quotes_root" action="action_autonomo_travel_rate" sequence="20"/>
+    <menuitem id="menu_autonomo_cost_items" name="Conceptos de coste" parent="menu_autonomo_quotes_root" action="action_autonomo_cost_item" sequence="30"/>
+</odoo>

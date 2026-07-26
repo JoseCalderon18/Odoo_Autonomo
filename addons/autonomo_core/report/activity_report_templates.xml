@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_autonomo_activity">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            table.table, table.table tr, table.table th, table.table td { border: 0 !important; box-shadow: none !important; }
+                            table.table th, table.table td { padding: 5px 0; }
+                            table.table td:last-child { font-weight: 700; }
+                            h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 1px solid #dddddd; }
+                        </style>
+                        <h2>Ficha de actividad economica</h2>
+                        <p><strong>Empresa:</strong> <span t-field="doc.company_id.name"/> | <strong>NIF:</strong> <span t-field="doc.company_id.vat"/></p>
+                        <p><strong>Referencia:</strong> <span t-field="doc.code"/> | <strong>Fecha:</strong> <span t-field="doc.write_date"/></p>
+                        <table class="table table-sm">
+                            <tr><td>Nombre</td><td><span t-field="doc.name"/></td></tr>
+                            <tr><td>Tipo</td><td><span t-field="doc.activity_kind"/></td></tr>
+                            <tr><td>IAE</td><td><span t-field="doc.iae_code"/></td></tr>
+                            <tr><td>CNAE</td><td><span t-field="doc.cnae_code"/></td></tr>
+                            <tr><td>IRPF</td><td><span t-field="doc.irpf_estimation_method"/></td></tr>
+                            <tr><td>IVA</td><td><span t-field="doc.vat_regime"/></td></tr>
+                            <tr><td>IVA deducible por defecto</td><td><span t-field="doc.vat_deductible_default_percent"/>%</td></tr>
+                        </table>
+                        <h4>Fuentes oficiales</h4>
+                        <ul>
+                            <li t-foreach="doc.legal_source_ids" t-as="source">
+                                <span t-field="source.name"/> - <span t-field="source.official_url"/> - consultado <span t-field="source.verified_at"/>
+                            </li>
+                        </ul>
+                        <p class="text-muted">Informe interno informativo. No sustituye formularios oficiales ni revision profesional humana.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

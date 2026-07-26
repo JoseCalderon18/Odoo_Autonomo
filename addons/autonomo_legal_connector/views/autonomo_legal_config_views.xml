@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_autonomo_legal_config_list" model="ir.ui.view">
+        <field name="name">autonomo.legal.config.list</field>
+        <field name="model">autonomo.legal.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="service_url"/>
+                <field name="auth_type"/>
+                <field name="timeout_seconds"/>
+                <field name="last_connection_state"/>
+                <field name="last_connection_at"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_autonomo_legal_config_form" model="ir.ui.view">
+        <field name="name">autonomo.legal.config.form</field>
+        <field name="model">autonomo.legal.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_test_connection" type="object" string="Probar conexion" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="service_url"/>
+                            <field name="auth_type"/>
+                            <field name="api_token" groups="autonomo_core.group_autonomo_admin"/>
+                        </group>
+                        <group>
+                            <field name="timeout_seconds"/>
+                            <field name="verify_ssl"/>
+                            <field name="anonymization_mode"/>
+                            <field name="active"/>
+                            <field name="last_connection_state"/>
+                            <field name="last_connection_at"/>
+                        </group>
+                    </group>
+                    <field name="last_error"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_autonomo_legal_config" model="ir.actions.act_window">
+        <field name="name">Configuracion legal</field>
+        <field name="res_model">autonomo.legal.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
